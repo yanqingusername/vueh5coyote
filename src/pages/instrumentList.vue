@@ -56,6 +56,7 @@
           </div>
         </div>
       </div>
+      <div class="empty_view"></div>
       <div class="view_bottom">
           <div class="submit_view" @click="bindInstrument">绑定仪器</div>
       </div>
@@ -203,12 +204,21 @@ export default {
   font-size: 32px;
 }
 
+.empty_view{
+  height: 150px;
+  width: 100%;
+}
+
 .view_bottom {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  margin-top: 20px;
+  position: fixed;  
+  bottom: 0px;
+  z-index: 20;
+  height: 120px;
+  background: #FFFFFF;
 }
 
 .view_bottom_left {
@@ -238,7 +248,7 @@ export default {
 }
 
 .search-list {
-  height: 1000px;
+  // height: 1000px;
   border: 0 none;
   background-color: #fff;
   width: 100%;

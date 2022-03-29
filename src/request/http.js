@@ -11,7 +11,7 @@ import router from '../router/index'
 axios.defaults.baseURL = '/';
 
 // 请求超时时间
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 60000;
 
 
 axios.defaults.crewithdentials = true;

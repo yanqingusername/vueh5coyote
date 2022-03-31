@@ -77,8 +77,10 @@
                 <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
                 <div class="search-result-view-left-lable">{{ item.instrument_name }}</div>
               </div>
-              <div class="search-result-view-right" @click="repairInstrument">
-                <img style="width:20px;height:20px;" src="../assets/images/icon_detail_edit.png" alt="" />
+              <div class="search-result-view-right">
+                <img @click="repairInstrument"
+              :data-instrumentsn="item.instrument_SN"
+              :data-instrumentname="item.instrument_name" style="width:20px;height:20px;" src="../assets/images/icon_detail_edit.png" alt="" />
               </div>
             </div>
 
@@ -365,16 +367,19 @@ export default {
       return;
     },
     // 维修
-    repairInstrument(){
-      let that = this;
-      this.$router.push({
-        path: "/instrumentRepair",
-        query:{
-          id: that.roleId
-        }
-      });
-      // this.$router.push("/instrumentBind");
-      return;
+    repairInstrument(e){
+      let instrumentsn = e.target.dataset.instrumentsn;
+      let instrumentname = e.target.dataset.instrumentname;
+      if(instrumentsn && instrumentname){
+        this.$router.push({
+          path: "/instrumentRepair",
+          query:{
+            id: this.roleId,
+            sn: instrumentsn,
+            snn: instrumentname
+          }
+        });
+      }
     },
     changeInput() {
       //单击搜索框时获取焦点

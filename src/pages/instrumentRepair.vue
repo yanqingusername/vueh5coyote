@@ -161,34 +161,34 @@
         <div class="icon_login_text">图片记录</div>
         <div class="form-item" style="border-bottom: none;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt="" @click="ImagePreview" :data-img="imgurl2"/>
+            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt="" @click="ImagePreviews" :data-img="imgurl2"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">仪器序列号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" @click="ImagePreview" :data-img="imgurl"/>
+            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" @click="ImagePreviews" :data-img="imgurl"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">机芯编号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" @click="ImagePreview" :data-img="imgurl3"/>
+            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" @click="ImagePreviews" :data-img="imgurl3"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块1</div>
           </div>
           <div class="img_1_view">
-           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt="" @click="ImagePreview" :data-img="imgurl4"/>
+           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt="" @click="ImagePreviews" :data-img="imgurl4"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块2</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt="" @click="ImagePreview" :data-img="imgurl5"/>
+            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt="" @click="ImagePreviews" :data-img="imgurl5"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块3</div>
           </div>
         </div>
         <div class="form-item" style="border-bottom: none;padding-left: 6px;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" @click="ImagePreview" :data-img="imgurl6"/>
+            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" @click="ImagePreviews" :data-img="imgurl6"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块4</div>
           </div>
@@ -255,7 +255,8 @@ export default {
     Header,
     [Dialog.Component.name]: Dialog.Component, //Dialog.Component写成这样才生效
     [Button.name]: Button,
-    Uploader
+    Uploader,
+    ImagePreview
   },
   data() {
     return {
@@ -305,8 +306,10 @@ export default {
   },
   activated() {
     this.roleId = this.$route.query.id;
-    console.log(this.roleId)
-    this.getModule();
+    this.instrument_sn = this.$route.query.sn;
+    this.instrument_name = this.$route.query.snn;
+    console.log(this.roleId,this.instrument_sn,this.instrument_name)
+    this.getModule(this.instrument_sn,this.instrument_name);
   },
   mounted() {
     
@@ -325,14 +328,7 @@ export default {
             that.instrumentID = msg.instrumentID;
             that.instrument_sn = msg.instrument_SN;
             
-            if(msg && msg.instrument_name){
-              for(let i = 0; i < that.instrumentList.length; i++){
-                if(that.instrumentList[i].instrument_name == msg.instrument_name){
-                  that.instrument_name = msg.instrument_name;
-                  that.instrumentIndex = i;
-                }
-              }
-            }
+            that.instrument_name = msg.instrument_name;
             that.label_sn = msg.gps;
             that.imgurl2 = msg.snpic;
 
@@ -1055,7 +1051,7 @@ export default {
         });
       }
     },
-    ImagePreview(e){
+    ImagePreviews(e){
       let img = e.target.dataset.img;
       if(img){
         ImagePreview([img]);

@@ -133,7 +133,9 @@ export default {
             Toast(res.data.msg)
             // Notify({ type: 'primary', message:  res.data.msg});
             this.$router.push({
+                // path: "/instrumentList",
                 path: "/instrumentList",
+                query:{id: 3 || res.data.roleId}
             });
           } else {
             Toast(res.data.msg)
@@ -146,8 +148,11 @@ export default {
       // this.$router.replace({
       //     path:"/instrumentList"
       // })
+
+      // 1--库管   2--生产  3--维修  
       this.$router.push({
         path: "/instrumentList",
+        query:{id: 1 || res.data.roleId}
       });
     },
   },

@@ -7,6 +7,11 @@ import Login from '../pages/login/login.vue'
 import Page404 from '../pages/page404/index.vue'
 import instrumentList from '../pages/instrumentList.vue'
 import instrumentBind from '../pages/instrumentBind.vue'
+import instrumentBindGPS from '../pages/instrumentBindGPS.vue';
+import instrumentStore from '../pages/instrumentStore.vue';
+import instrumentStoreGPS from '../pages/instrumentStoreGPS.vue';
+import instrumentRepair from '../pages/instrumentRepair.vue';
+
 
 const routes = [{
         path: '/login',
@@ -44,6 +49,22 @@ const routes = [{
     {
         path:"/instrumentBind",
         component: instrumentBind
+    },
+    {
+        path:"/instrumentBindGPS",
+        component: instrumentBindGPS
+    },
+    {
+        path:"/instrumentStore",
+        component: instrumentStore
+    },
+    {
+        path:"/instrumentStoreGPS",
+        component: instrumentStoreGPS
+    },
+    {
+        path:"/instrumentRepair",
+        component: instrumentRepair
     },
     {
         path: '/',

@@ -21,6 +21,7 @@
               type="text"
               name="label_sn"
               placeholder="请填写/扫描耳环编号"
+              :disabled="isEdit"
             />
             <div class="pic-div"  @click="OnQRcode">
                 <img class="pic-img-item" id="img1">
@@ -33,6 +34,37 @@
       </div>
 
       <div class="bind_main_item">
+        <div class="icon_login_text">仪器信息</div>
+        <div class="drop-select-item">
+          <DropDownList
+              :dataList="instrumentList"
+              :activeIndex="instrumentIndex"
+              @change="onInstrumentChange"
+              align="left"
+              class="select"
+              placeholder="请选择仪器类型"
+              :disabled="isEdit"
+            />
+        </div>
+        <div class="form-item" style="border-bottom: none;margin-top:5px;">
+          <div class="select-item input-item">
+            <input
+              v-model="instrument_sn"
+              type="text"
+              name="instrument_sn"
+              placeholder="请填写/扫描仪器SN号"
+              :disabled="isEdit"/>
+            <div class="pic-div">
+                <img class="pic-img-item" id="img2">
+                  <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
+                  <input class="img-item" :disabled="isEdit" type="file" accept="image/*" id="uploadImg2" name="uploadImg2" alt="" @change="handleFileImg2"/>
+                </img>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="bind_main_item">
         <div class="icon_login_text">仪器序列号</div>
         <div class="form-item" style="border-bottom: none;">
           <div class="select-item input-item">
@@ -40,30 +72,32 @@
               v-model="instrument_sn"
               type="text"
               name="instrument_sn"
-              placeholder="请填写/扫描仪器SN号"/>
+              placeholder="请填写/扫描仪器SN号"
+              :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img2">
                   <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
-                  <input class="img-item" type="file" accept="image/*" id="uploadImg2" name="uploadImg2" alt="" @change="handleFileImg2"/>
+                  <input class="img-item" :disabled="isEdit" type="file" accept="image/*" id="uploadImg2" name="uploadImg2" alt="" @change="handleFileImg2"/>
                 </img>
               </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="bind_main_item">
-        <div class="icon_login_text">机芯列号(选填)</div>
+        <div class="icon_login_text">机芯编号(选填)</div>
         <div class="form-item" style="border-bottom: none;">
           <div class="select-item input-item">
             <input
               v-model="chassis_sn"
               type="text"
               name="chassis_sn"
-              placeholder="请填写/扫描机芯号"/>
+              placeholder="请填写/扫描机芯编号"
+              :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img">
                   <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
-                  <input class="img-item" type="file" accept="image/*" id="uploadImg" name="uploadImg" alt="" @change="handleFileImg" />
+                  <input class="img-item" :disabled="isEdit" type="file" accept="image/*" id="uploadImg" name="uploadImg" alt="" @change="handleFileImg" />
                 </img>
               </div>
           </div>
@@ -78,11 +112,12 @@
               v-model="num1_sn"
               type="text"
               name="num1_sn"
-              placeholder="模块1编号"/>
+              placeholder="模块1编号"
+              :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img3">
                   <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
-                  <input class="img-item" type="file" accept="image/*" id="uploadImg3" name="uploadImg3" alt="" @change="handleFileImg3"/>
+                  <input class="img-item" :disabled="isEdit" type="file" accept="image/*" id="uploadImg3" name="uploadImg3" alt="" @change="handleFileImg3"/>
                 </img>
               </div>
           </div>
@@ -93,11 +128,12 @@
               v-model="num2_sn"
               type="text"
               name="num2_sn"
-              placeholder="模块2编号"/>
+              placeholder="模块2编号"
+              :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img4">
                   <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
-                  <input class="img-item" type="file" accept="image/*" id="uploadImg4" name="uploadImg4" alt="" @change="handleFileImg4"/>
+                  <input class="img-item" :disabled="isEdit" type="file" accept="image/*" id="uploadImg4" name="uploadImg4" alt="" @change="handleFileImg4"/>
                 </img>
               </div>
           </div>
@@ -108,11 +144,12 @@
               v-model="num3_sn"
               type="text"
               name="num3_sn"
-              placeholder="模块3编号"/>
+              placeholder="模块3编号"
+              :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img5">
                   <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
-                  <input class="img-item" type="file" accept="image/*" id="uploadImg5" name="uploadImg5" alt="" @change="handleFileImg5"/>
+                  <input class="img-item" :disabled="isEdit" type="file" accept="image/*" id="uploadImg5" name="uploadImg5" alt="" @change="handleFileImg5"/>
                 </img>
               </div>
           </div>
@@ -123,11 +160,12 @@
               v-model="num4_sn"
               type="text"
               name="num4_sn"
-              placeholder="模块4编号"/>
+              placeholder="模块4编号"
+              :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img6">
                   <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
-                  <input class="img-item" type="file" accept="image/*" id="uploadImg6" name="uploadImg6" alt="" @change="handleFileImg6"/>
+                  <input class="img-item" :disabled="isEdit" type="file" accept="image/*" id="uploadImg6" name="uploadImg6" alt="" @change="handleFileImg6"/>
                 </img>
               </div>
           </div>
@@ -138,34 +176,34 @@
         <div class="icon_login_text">图片记录</div>
         <div class="form-item" style="border-bottom: none;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt="" />
+            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt="" @click="ImagePreview" :data-img="imgurl2"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">仪器序列号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" />
+            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" @click="ImagePreview" :data-img="imgurl"/>
             <div class="img_1" v-else></div>
-            <div class="img_1_text">机芯序列号</div>
+            <div class="img_1_text">机芯编号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" />
+            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" @click="ImagePreview" :data-img="imgurl3"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块1</div>
           </div>
           <div class="img_1_view">
-           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt="" />
+           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt="" @click="ImagePreview" :data-img="imgurl4"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块2</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt="" />
+            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt="" @click="ImagePreview" :data-img="imgurl5"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块3</div>
           </div>
         </div>
-        <div class="form-item" style="border-bottom: none;">
+        <div class="form-item" style="border-bottom: none;padding-left: 6px;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" />
+            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" @click="ImagePreview" :data-img="imgurl6"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块4</div>
           </div>
@@ -173,16 +211,22 @@
         </div>
       </div>
       <div class="empty_view"></div>
-     <div class="view_bottom">
+      <div class="view_bottom" v-if="roleId == 2">
         <div class="view_bottom_left" @click="bindInstrument" :data-number="0">保存</div>
         <div class="view_bottom_right" @click="bindInstrument" :data-number="1">确认绑定</div>
       </div>
+
+      <!-- <div class="view_bottom" v-if="roleId == 1">
+          <div class="submit_view" @click="bindInstrument">确认绑定</div>
+      </div> -->
+
     </div>
     
     <van-dialog
             v-model="isShow"
             show-cancel-button
             :beforeClose="beforeClose"
+            confirmButtonColor='#307FF5'
     >
     <div style="height: 300px;overflow: auto;margin: 30px 30px 10px;">
         <div
@@ -212,10 +256,11 @@
  */
 
 import Header from "../components/header.vue";
-import { udateH5Images,uploadImgSelect,uploadImgBind ,bindinstrument, getJSSDKHELP,saveinstrument} from "../request/api";
+import { udateH5Images,uploadImgSelect,uploadImgBind ,bindinstrument, getJSSDKHELP,saveinstrument,getBindbutn,searchSN} from "../request/api";
 // import { Notify } from "vant";
 import { Button,Dialog ,Uploader,Toast,ImagePreview,Loading} from 'vant';
 import wx from 'jweixin-module';
+import DropDownList from "../components/mg_select.vue";
 
 var imgurl1= ''
 var imgurl= ''
@@ -231,13 +276,35 @@ export default {
     Header,
     [Dialog.Component.name]: Dialog.Component, //Dialog.Component写成这样才生效
     [Button.name]: Button,
-    Uploader
+    Uploader,
+    DropDownList
   },
   data() {
     return {
+      isShowInstrument: true,
+      instrumentList:[
+        {
+          'instrument_name': 'mini8'
+        },
+        {
+          'instrument_name': 'flash20'
+        },
+        {
+          'instrument_name': 'mini8'
+        }
+      ],
+      instrumentIndex: -1,
+      instrument_name:"",
+      roleId: 1,  // 1--库管   2--生产  3--维修
+      instrumentID: "",
       label_sn: "",
+      chassisid: "",
       chassis_sn: "",
       instrument_sn: "",
+      numid1: "",
+      numid2: "",
+      numid3: "",
+      numid4: "",
       num1_sn: "",
       num2_sn: "",
       num3_sn: "",
@@ -261,12 +328,91 @@ export default {
       num3_sn_old: "",
       num4_sn_old: "",
       numberType: "0",
+      imgurl1_old: '',
+      imgurl_old: '',
+      imgurl2_old: '',
+      imgurl3_old: '',
+      imgurl4_old: '',
+      imgurl5_old: '',
+      imgurl6_old: '',
+      isEdit: false
     };
+  },
+  activated() {
+    this.roleId = this.$route.query.id;
+    console.log(this.roleId)
+    this.getBindbutn();
   },
   mounted() {
     this.isWechat();
   },
   methods: {
+    onInstrumentChange(val) {
+      let code = val.value.instrument_name;
+      console.log(val)
+      this.instrumentIndex = val.index;
+      this.instrument_name = code;
+    },
+    // 首页上的绑定按钮 获取生产保存数据
+    getBindbutn(){
+      let that = this;
+      getBindbutn({}).then((res)=>{
+        if (res.data.success) {
+          if(res.data.status == 1){
+            let msg = res.data.msg;
+            that.instrumentID = msg.instrumentID;
+            that.instrument_sn = msg.instrument_SN;
+            
+            if(msg && msg.instrument_name){
+              for(let i = 0; i < that.instrumentList.length; i++){
+                if(that.instrumentList[i].instrument_name == msg.instrument_name){
+                  that.instrument_name = msg.instrument_name;
+                  that.instrumentIndex = i;
+                }
+              }
+            }
+            that.label_sn = msg.label;
+            that.imgurl2 = msg.snpic;
+
+            if(msg.module && msg.module.length > 0){
+              for(let i = 0; i < msg.module.length; i++){
+                let item = msg.module[i];
+                if(item.type == "chassis"){
+                  that.chassisid = item.id;
+                  that.chassis_sn = item.part_SN;
+                  that.imgurl = item.part_pic;
+                } else if(item.type == "module"){
+                  if(item.module_num == "1"){
+                    that.numid1 = item.id;
+                    that.imgurl3 = item.part_pic;
+                    that.num1_sn = item.part_SN;
+                  }
+                  if(item.module_num == "2"){
+                    that.numid2 = item.id;
+                    that.imgurl4 = item.part_pic;
+                    that.num2_sn = item.part_SN;
+                  }
+                  if(item.module_num == "3"){
+                    that.numid3 = item.id;
+                    that.imgurl5 = item.part_pic;
+                    that.num3_sn = item.part_SN;
+                  }
+                  if(item.module_num == "4"){
+                    that.numid4 = item.id;
+                    that.imgurl6 = item.part_pic;
+                    that.num4_sn = item.part_SN;
+                  }
+                }
+              }
+            }
+            that.isEdit = true;
+          }
+          
+        } else {
+          Toast(res.data.msg)
+        }
+      });
+    },
     isWechat() {
       const ua = window.navigator.userAgent.toLowerCase();
       if (ua.match(/micromessenger/i) == 'micromessenger') {
@@ -323,23 +469,25 @@ export default {
       }
     },
     OnQRcode() {	// 点击的时候调起扫一扫功能呢
-      const that = this;
-      // alert('111')
-      console.log('1');
-      wx.scanQRCode({
-        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-        scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
-        success(res) {
-          const resultStrArr = res.resultStr.split(',');		
-          // 转为数组时为了避免扫描一维码是返回CODE_128,20180528前面会添加一个CODE_128所以转为数组获		取最后一条就行了
-          console.log(resultStrArr[resultStrArr.length - 1]); // 输出扫码信息
-          that.result = resultStrArr[resultStrArr.length - 1];
-          that.label_sn = resultStrArr[resultStrArr.length - 1];
-        },
-        fail(res) {
-          console.log('err', res);
-        }
-      });
+      if(this.isEdit){
+
+      }else{
+        const that = this;
+        wx.scanQRCode({
+          needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+          scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
+          success(res) {
+            const resultStrArr = res.resultStr.split(',');		
+            // 转为数组时为了避免扫描一维码是返回CODE_128,20180528前面会添加一个CODE_128所以转为数组获		取最后一条就行了
+            console.log(resultStrArr[resultStrArr.length - 1]); // 输出扫码信息
+            that.result = resultStrArr[resultStrArr.length - 1];
+            that.label_sn = resultStrArr[resultStrArr.length - 1];
+          },
+          fail(res) {
+            console.log('err', res);
+          }
+        });
+      }
     },
      handleTitleBack() {
       this.$router.back();
@@ -347,55 +495,120 @@ export default {
     bindSelect(e){
       this.labelIndex = e.target.dataset.index;
       if(this.numberType == 1){
-                        
         this.label_sn_old = e.target.dataset.linecontent;
-                     }
+      }
 
       if(this.numberType == 0){
-                        
         this.chassis_sn_old = e.target.dataset.linecontent;
-                     }
-                     if(this.numberType == 2){
-                       this.instrument_sn_old = e.target.dataset.linecontent;
-                     }
-                     if(this.numberType == 3){
-                       this.num1_sn_old = e.target.dataset.linecontent;
-                     }
-                     if(this.numberType == 4){
-                      this.num2_sn_old = e.target.dataset.linecontent;
-                     }
-                     if(this.numberType == 5){
-                       this.num3_sn_old = e.target.dataset.linecontent;
-                     }
-                     if(this.numberType == 6){
-                       this.num4_sn_old = e.target.dataset.linecontent;
-                     }
+      }
+      
+      if(this.numberType == 2){
+        this.instrument_sn_old = e.target.dataset.linecontent;
+      }
 
+      if(this.numberType == 3){
+        this.num1_sn_old = e.target.dataset.linecontent;
+      }
 
+      if(this.numberType == 4){
+        this.num2_sn_old = e.target.dataset.linecontent;
+      }
+                     
+      if(this.numberType == 5){
+        this.num3_sn_old = e.target.dataset.linecontent;
+      }
+
+      if(this.numberType == 6){
+        this.num4_sn_old = e.target.dataset.linecontent;
+      }
     },
     beforeClose(action, done) {
+      let that = this;
                 if(action === 'confirm') {
                   if(this.numberType == 1){
                         this.label_sn = this.label_sn_old;
+                        this.imgurl1 = this.imgurl1_old;
                      }
                    
                    if(this.numberType == 0){
-                      this.chassis_sn = this.chassis_sn_old;
+                      searchSN({
+                         type: '1',
+                         SN: this.chassis_sn_old
+                       }).then((res)=>{
+                         if (res.data.success) {
+                            that.chassis_sn = that.chassis_sn_old;
+                            that.imgurl = that.imgurl_old;
+                          } else {
+                            Toast(res.data.msg)
+                          }
+                       })
                      }
                      if(this.numberType == 2){
-                       this.instrument_sn = this.instrument_sn_old;
+                       searchSN({
+                         type: '0',
+                         SN: this.instrument_sn_old
+                       }).then((res)=>{
+                         if (res.data.success) {
+                            that.instrument_sn = that.instrument_sn_old;
+                            that.imgurl2 = that.imgurl2_old;
+                          } else {
+                            Toast(res.data.msg)
+                          }
+                       })
                      }
                      if(this.numberType == 3){
-                       this.num1_sn = this.num1_sn_old;
+                       searchSN({
+                         type: '1',
+                         SN: this.num1_sn_old
+                       }).then((res)=>{
+                         if (res.data.success) {
+                            that.num1_sn = that.num1_sn_old;
+                            that.imgurl3 = that.imgurl3_old;
+                          } else {
+                            Toast(res.data.msg)
+                          }
+                       })
                      }
                      if(this.numberType == 4){
-                      this.num2_sn = this.num2_sn_old;
+                       searchSN({
+                         type: '1',
+                         SN: this.num2_sn_old
+                       }).then((res)=>{
+                         if (res.data.success) {
+                            that.num2_sn = that.num2_sn_old;
+                            that.imgurl4 = that.imgurl4_old;
+                          } else {
+                            Toast(res.data.msg)
+                          }
+                       })
                      }
                      if(this.numberType == 5){
-                       this.num3_sn = this.num3_sn_old;
+                       searchSN({
+                         type: '1',
+                         SN: this.num3_sn_old
+                       }).then((res)=>{
+                         if (res.data.success) {
+                            that.num3_sn = that.num3_sn_old;
+                       that.imgurl5 = that.imgurl5_old;
+                          } else {
+                            Toast(res.data.msg)
+                          }
+                       })
+                       
                      }
                      if(this.numberType == 6){
-                       this.num4_sn = this.num4_sn_old;
+                       searchSN({
+                         type: '1',
+                         SN: this.num4_sn_old
+                       }).then((res)=>{
+                         if (res.data.success) {
+                           that.num4_sn = that.num4_sn_old;
+                       that.imgurl6 = that.imgurl6_old;
+                          } else {
+                            Toast(res.data.msg)
+                          }
+                       })
+                       
                      }
                    done()
                 } else if(action === 'cancel') {
@@ -403,7 +616,7 @@ export default {
                   this.labelIndex = -1;
                     done() //关闭
                 }
-            },
+    },
     setPicImg(value,number){
        
       let that = this;
@@ -420,30 +633,33 @@ export default {
                    uploadImgBind({
                      'image_64': dataurl,
                    }).then((res)=>{
-                     if(number == 1){
-                       that.imgurl1 = res.data.msg
-                     }
-                     if(number == 0){
-                       that.imgurl = res.data.msg
-                     }
-                     if(number == 2){
-                       that.imgurl2 = res.data.msg
-                     }
-                     if(number == 3){
-                       that.imgurl3 = res.data.msg
-                     }
-                     if(number == 4){
-                       that.imgurl4 = res.data.msg
-                     }
-                     if(number == 5){
-                       that.imgurl5 = res.data.msg
-                     }
-                     if(number == 6){
-                       that.imgurl6 = res.data.msg
-                     }
-                     
+                      if (res.data.success) {
+                        if(number == 1){
+                          that.imgurl1_old = res.data.msg
+                        }
+                        if(number == 0){
+                          that.imgurl_old = res.data.msg
+                        }
+                        if(number == 2){
+                          that.imgurl2_old = res.data.msg
+                        }
+                        if(number == 3){
+                          that.imgurl3_old = res.data.msg
+                        }
+                        if(number == 4){
+                          that.imgurl4_old = res.data.msg
+                        }
+                        if(number == 5){
+                          that.imgurl5_old = res.data.msg
+                        }
+                        if(number == 6){
+                          that.imgurl6_old = res.data.msg
+                        }
+                      } else {
+                        Toast(res.data.msg)
+                      }
                    }).catch((err)=>{
-                      alert(err)
+                      Toast(err)
                    })
 
                   udateH5Images({
@@ -499,7 +715,13 @@ export default {
             reader.onload = function (e) {
                 imgurl1 = e.target.result;
 
-                that.setPicImg(e.target.result,1);
+                if(e.target.result.length / 1024 > 1025){
+                  that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                    that.setPicImg(base64Codes,1);
+                  });
+                }else{
+                  that.setPicImg(e.target.result,1);
+                }
             };
             img1.src = window.URL.createObjectURL(selected_file);
             reader.readAsDataURL(selected_file);
@@ -518,7 +740,14 @@ export default {
                   img.src = e.target.result;
                   imgurl1 = img.src;
 
-                  that.setPicImg(e.target.result,1);
+                  if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,1);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,1);
+                  }
+                
               };
               reader.readAsDataURL(selected_file);
             }
@@ -543,7 +772,13 @@ export default {
             reader.onload = function (e) {
                 imgurl = e.target.result;
 
-                that.setPicImg(e.target.result,0);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,0);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,0);
+                  }
             };
             img1.src = window.URL.createObjectURL(selected_file);
             reader.readAsDataURL(selected_file);
@@ -562,7 +797,13 @@ export default {
                   img.src = e.target.result;
                   imgurl = img.src;
 
-                  that.setPicImg(e.target.result,0);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,0);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,0);
+                  }
               };
               reader.readAsDataURL(selected_file);
             }
@@ -587,7 +828,13 @@ export default {
             reader.onload = function (e) {
                 imgurl2 = e.target.result;
 
-                that.setPicImg(e.target.result,2);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,2);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,2);
+                  }
             };
             img1.src = window.URL.createObjectURL(selected_file);
             reader.readAsDataURL(selected_file);
@@ -606,7 +853,13 @@ export default {
                   img.src = e.target.result;
                   imgurl2 = img.src;
 
-                  that.setPicImg(e.target.result,2);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,2);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,2);
+                  }
               };
               reader.readAsDataURL(selected_file);
             }
@@ -631,7 +884,14 @@ export default {
             reader.onload = function (e) {
                 imgurl3 = e.target.result;
 
-                that.setPicImg(e.target.result,3);
+               if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,3);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,3);
+                  }
+                
             };
             img1.src = window.URL.createObjectURL(selected_file);
             reader.readAsDataURL(selected_file);
@@ -650,7 +910,14 @@ export default {
                   img.src = e.target.result;
                   imgurl3 = img.src;
 
-                  that.setPicImg(e.target.result,3);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,3);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,3);
+                  }
+                  
               };
               reader.readAsDataURL(selected_file);
             }
@@ -675,7 +942,14 @@ export default {
             reader.onload = function (e) {
                 imgurl4 = e.target.result;
 
-                that.setPicImg(e.target.result,4);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,4);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,4);
+                  }
+                
             };
             img1.src = window.URL.createObjectURL(selected_file);
             reader.readAsDataURL(selected_file);
@@ -694,7 +968,13 @@ export default {
                   img.src = e.target.result;
                   imgurl4 = img.src;
 
-                  that.setPicImg(e.target.result,4);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,4);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,4);
+                  }
               };
               reader.readAsDataURL(selected_file);
             }
@@ -718,8 +998,15 @@ export default {
             let reader = new FileReader();//简单来说就是异步读取电脑中的文件
             reader.onload = function (e) {
                 imgurl5 = e.target.result;
-
-                that.setPicImg(e.target.result,5);
+                
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,5);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,5);
+                  }
+                
             };
             img1.src = window.URL.createObjectURL(selected_file);
             reader.readAsDataURL(selected_file);
@@ -738,7 +1025,14 @@ export default {
                   img.src = e.target.result;
                   imgurl5 = img.src;
 
-                  that.setPicImg(e.target.result,5);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,5);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,5);
+                  }
+                  
               };
               reader.readAsDataURL(selected_file);
             }
@@ -763,7 +1057,13 @@ export default {
             reader.onload = function (e) {
                 imgurl6 = e.target.result;
 
-                that.setPicImg(e.target.result,6);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,6);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,6);
+                  }
             };
             img1.src = window.URL.createObjectURL(selected_file);
             reader.readAsDataURL(selected_file);
@@ -782,7 +1082,13 @@ export default {
                   img.src = e.target.result;
                   imgurl6 = img.src;
 
-                  that.setPicImg(e.target.result,6);
+                if(e.target.result.length / 1024 > 1025){
+                    that.canvasDataURL(e.target.result, {quality: 0.7}, function (base64Codes) {
+                      that.setPicImg(base64Codes,6);
+                    });
+                  }else{
+                    that.setPicImg(e.target.result,6);
+                  }
               };
               reader.readAsDataURL(selected_file);
             }
@@ -791,124 +1097,191 @@ export default {
     bindInstrument(e) {
       let number = e.target.dataset.number;
       let that = this;
-      if (this.label_sn == '' || this.instrument_SN == '' || this.chassis == '') {
-        Toast('不能为空');
+      if (this.label_sn == '') {
+        Toast('耳环编号不能为空');
         return;
       }
+      if (this.instrument_name == '') {
+        Toast('请选择仪器名称');
+        return;
+      }
+      
+      if (this.instrument_sn == '') {
+        Toast('仪器序列号不能为空');
+        return;
+      }
+      // if (this.chassis == '') {
+      //   Toast('机芯序列号不能为空');
+      //   return;
+      // }
       let module = []
-      if(this.num1_sn && this.imgurl3){
-        let obj = {
-          "id": '',
+      if(this.num1_sn || this.imgurl3){
+        let obj1 = {
+          "id": this.numid1,
 					"num":1,//模块一
 					"sn": this.num1_sn,//模块一的序列号
 					"pic":this.imgurl3//图
         }
-        module.push(obj)
+        module.push(obj1)
       }
-      if(this.num2_sn && this.imgurl4){
-        let obj = {
-          "id": '',
+      if(this.num2_sn || this.imgurl4){
+        let obj2 = {
+          "id": this.numid2,
 					"num":2,//模块一
 					"sn": this.num2_sn,//模块一的序列号
 					"pic":this.imgurl4//图
         }
-        module.push(obj)
+        module.push(obj2)
       }
-      if(this.num3_sn && this.imgurl5){
-        let obj = {
-          "id": '',
+      if(this.num3_sn || this.imgurl5){
+        let obj3 = {
+          "id": this.numid3,
 					"num":3,//模块一
 					"sn": this.num3_sn,//模块一的序列号
 					"pic":this.imgurl5//图
         }
-        module.push(obj)
+        module.push(obj3)
       }
-      if(this.num4_sn && this.imgurl6){
-        let obj = {
-          "id": '',
+      if(this.num4_sn || this.imgurl6){
+        let obj4 = {
+          "id": this.numid4,
 					"num":4,//模块一
 					"sn": this.num4_sn,//模块一的序列号
 					"pic":this.imgurl6//图
         }
-        module.push(obj)
+        module.push(obj4)
       }
       let params = {
-        id: "",
+        id: this.instrumentID,
         label: this.label_sn,
         instrument_SN: this.instrument_sn,
         snpic: this.imgurl2,
-        chassisid: "",
+        chassisid: this.chassisid,
         chassis: this.chassis_sn,
         chassispic: this.imgurl,
-        module: module
+        module: module,
+        instrument_name: this.instrument_name
       }
       console.log('---->:',params)
 
       if(number == 1){
         bindinstrument({
-        data: params,
-        status: 1
-      }).then((res) => {
-        if (res.data.success) {
-          Dialog.confirm({
-            title: '标题',
-            message: res.data.msg,
-            cancelButtonText: '返回首页',
-            cancelButtonColor:'#666666',
-            confirmButtonText: '继续绑定',
-            confirmButtonColor: '#307FF5'
-          })
-          .then(() => {
-            that.label_sn= "";
-            that.chassis_sn= "";
-            that.instrument_sn= "";
-            that.num1_sn= "";
-            that.num2_sn= "";
-            that.num3_sn= "";
-            that.num4_sn= "";
-            that.numberList= []
-            that.lableLength= 1;
-            that.isShow=false;
-            that.labelIndex= -1;
-            that.imgurl1= "";
-            that.imgurl= "";
-            that.imgurl2= "";
-            that.imgurl3= "";
-            that.imgurl4= "";
-            that.imgurl5= "";
-            that.imgurl6= "";
-            that.label_sn_old= "";
-            that.chassis_sn_old= "";
-            that.instrument_sn_old= "";
-            that.num1_sn_old= "";
-            that.num2_sn_old= "";
-            that.num3_sn_old= "";
-            that.num4_sn_old= "";
-            that.numberType= "0";
-          })
-          .catch(() => {
-            this.$router.replace({
-                path: "/instrumentList",
+          data: params,
+          status: 1
+        }).then((res) => {
+          if (res.data.success) {
+            Dialog.confirm({
+              title: '标题',
+              message: res.data.msg,
+              cancelButtonText: '返回首页',
+              cancelButtonColor:'#666666',
+              confirmButtonText: '继续绑定',
+              confirmButtonColor: '#307FF5'
+            }).then(() => {
+              that.instrumentID = "";
+              that.label_sn= "";
+              that.chassisid= "";
+              that.chassis_sn= "";
+              that.instrument_sn= "";
+              that.numid1 = "";
+              that.numid2 = "";
+              that.numid3 = "";
+              that.numid4 = "";
+              that.num1_sn= "";
+              that.num2_sn= "";
+              that.num3_sn= "";
+              that.num4_sn= "";
+              that.numberList= []
+              that.lableLength= 1;
+              that.isShow=false;
+              that.labelIndex= -1;
+              that.imgurl1= "";
+              that.imgurl= "";
+              that.imgurl2= "";
+              that.imgurl3= "";
+              that.imgurl4= "";
+              that.imgurl5= "";
+              that.imgurl6= "";
+              that.label_sn_old= "";
+              that.chassis_sn_old= "";
+              that.instrument_sn_old= "";
+              that.num1_sn_old= "";
+              that.num2_sn_old= "";
+              that.num3_sn_old= "";
+              that.num4_sn_old= "";
+              that.numberType= "0";
+              that.imgurl1_old= "";
+              that.imgurl_old= "";
+              that.imgurl2_old= "";
+              that.imgurl3_old= "";
+              that.imgurl4_old= "";
+              that.imgurl5_old= "";
+              that.imgurl6_old= "";
+              that.instrument_name = "";
+              that.instrumentIndex = -1;
+            }).catch(() => {
+              this.$router.replace({
+                  path: "/instrumentList",
+                  query:{id: that.roleId}
+              });
             });
-          });
-        } else {
-          Toast(res.data.msg)
-        }
-      });
+          } else {
+            Toast(res.data.msg)
+          }
+        });
       }else{
         saveinstrument({
-        data: params,
-        status: 0
-      }).then((res) => {
-        if (res.data.success) {
-          Toast(res.data.msg)
-        } else {
-          Toast(res.data.msg)
-        }
-      });
+          data: params,
+          status: 0
+        }).then((res) => {
+          if (res.data.success) {
+            that.isEdit = true;
+            Toast(res.data.msg)
+          } else {
+            Toast(res.data.msg)
+          }
+        });
       }
-
-      
+    },
+    ImagePreview(e){
+      let img = e.target.dataset.img;
+      ImagePreview([img]);
+    },
+    canvasDataURL (path, obj, callback) {
+      let img = new Image()
+      img.src = path
+      img.onload = function () {
+        let that = this // 指到img
+        // 默认按比例压缩
+        let w = that.width,
+          h = that.height,
+          scale = w / h
+        w = obj.width || w
+        h = obj.height || (w / scale)
+        w = w >= 4096 ? 4096 : w
+        h = h >= 4096 ? 4096 : h
+        console.log(obj.height,w,h,scale)
+        let quality = 0.5 // 默认图片质量为0.7
+        // 生成canvas
+        let canvas = document.createElement('canvas')
+        let ctx = canvas.getContext('2d')
+        // 创建属性节点
+        let anw = document.createAttribute('width')
+        anw.nodeValue = w
+        let anh = document.createAttribute('height')
+        anh.nodeValue = h
+        canvas.setAttributeNode(anw)
+        canvas.setAttributeNode(anh)
+        ctx.drawImage(that, 0, 0, w, h)
+        // 图像质量
+        if (obj.quality && obj.quality >= 1 && obj.quality < 0) {
+          quality = obj.quality
+        }
+        // quality值越小，所绘制出的图像越模糊
+        let base64 = canvas.toDataURL('image/jpeg', quality)
+        // 回调函数返回base64的值
+        callback(base64)
+      }
     },
   },
 };
@@ -1000,13 +1373,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
-  width: 315px;
-  height: 44px;
+  //   margin-top: 20px;
+  width: 90%;
+  height: 88px;
   background: #307ff5;
-  border-radius: 6px;
+  border-radius: 12px;
   color: #ffffff;
-  font-size: 22px;
+  font-size: 32px;
 }
 
 .pic-div {
@@ -1123,4 +1496,16 @@ export default {
       justify-content: space-between;
       height:80px;
     }
+
+    .drop-select-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      border-bottom: 1px solid #DDDDDD;
+      padding: 20px 0px;
+      position: relative;
+      
+    }
+
 </style>

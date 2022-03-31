@@ -18,7 +18,7 @@
           v-model="keywordValue"
           type="text"
           name="keywordValue"
-          placeholder="请输入仪器序列号/耳环编号"
+          placeholder="请输入仪器序列号"
           autocomplete="off"
           autocorrect="off"
           autocapitalize="off"
@@ -30,25 +30,62 @@
         />
         <img v-if="keywordValue" @click="clearSearchValue" style="width:18px;height:18px;position:absolute;right:15px;" src="../assets/images/deleteTest.png" alt="" />
       </div>
-      <div class="search-list">
+      <div :class="roleId == 3 ? 'search-list-role':'search-list'">
         <div class="search-result">
+          <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+          <van-list
+          v-model:loading="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onDownLoad"
+        >
           <div
-            class="search-result-view"
             v-for="(item, index) in instrumentList"
             :key="index">
-            <div class="search-result-view-left">
-              <div class="search-result-view-left-title">
-                {{ item.instrument_SN }}
+            <div class="search-result-view" v-if="roleId == 1">
+              <div class="search-result-view-left">
+                <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
+                <div class="search-result-view-left-lable">{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.label">耳环：{{ item.label }}</div>
+                <!-- <div class="search-result-view-left-lable" v-if="item.storenamegps">GPS：{{ item.storenamegps }}</div> -->
+                <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div>
               </div>
-              <div class="search-result-view-left-lable" v-if="item.label">耳环：{{ item.label }}</div>
-              <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div>
+              <div class="search-result-view-left">
+                <div
+                  class="search-result-view-left-lable"
+                  style="margin-top: 0px">{{ item.binding_time }}</div>
+              </div>
             </div>
-            <div class="search-result-view-left">
-              <div
-                class="search-result-view-left-lable"
-                style="margin-top: 0px">{{ item.binding_time }}</div>
+
+            <div class="search-result-view" v-if="roleId == 2">
+              <div class="search-result-view-left">
+                <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
+                <div class="search-result-view-left-lable">{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.label">耳环：{{ item.label }}</div>
+                <!-- <div class="search-result-view-left-lable" v-if="item.storenamegps">GPS：{{ item.storenamegps }}</div> -->
+                <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div>
+              </div>
+              <div class="search-result-view-left">
+                <div
+                  class="search-result-view-left-lable"
+                  style="margin-top: 0px">{{ item.binding_time }}</div>
+              </div>
             </div>
+
+            <div class="search-result-view" v-if="roleId == 3">
+              <div class="search-result-view-left">
+                <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
+                <div class="search-result-view-left-lable">{{ item.instrument_name }}</div>
+              </div>
+              <div class="search-result-view-right" @click="repairInstrument">
+                <img style="width:20px;height:20px;" src="../assets/images/icon_detail_edit.png" alt="" />
+              </div>
+            </div>
+
           </div>
+        </van-list>
+</van-pull-refresh>
+          
 
           <!-- 查询结果为空时候 -->
           <div class="result-null" v-if="instrumentList.length == 0">
@@ -57,49 +94,203 @@
         </div>
       </div>
       <div class="empty_view"></div>
-      <div class="view_bottom">
+      <!-- <div class="view_bottom">
           <div class="submit_view" @click="bindInstrument">绑定仪器</div>
+      </div> -->
+
+      <div class="view_bottom" v-if="roleId == 1">
+        <div class="view_bottom_left_1" @click="untieInstrument">解绑耳环</div>
+        <div class="view_bottom_right_1" @click="bindStoreGPS">绑定GPS</div>
+        <div class="view_bottom_right_1" @click="bindStore">绑定耳环</div>
       </div>
 
-      <!-- <div class="view_bottom">
-        <div class="view_bottom_left" @click="bindInstrument">解绑仪器</div>
-        <div class="view_bottom_right" @click="bindInstrument">绑定仪器</div>
-      </div> -->
+      <div class="view_bottom" v-if="roleId == 2">
+        <div class="view_bottom_left" @click="bindGPS">绑定GPS</div>
+        <div class="view_bottom_right" @click="bindInstrument">绑定耳环</div>
+      </div>
+
+      <div class="view_bottom" v-if="roleId == 3">
+        <div class="submit_view" @click="bindGPS">绑定GPS</div>
+      </div>
+
     </div>
+
+    <van-dialog
+      v-model="isShow"
+      show-cancel-button
+      :beforeClose="beforeClose"
+      confirmButtonColor='#307FF5'
+    >
+    <div class="dialog_item">
+        <div class="dialog_item_title">确认解绑该仪器？</div>
+        <div class="dialog_item_lable">仪器类型：12344556666666</div>
+        <div class="dialog_item_lable">仪器：12344556666666</div>
+        <div class="dialog_item_lable">耳环编号：13636363636</div>
+    </div>
+    </van-dialog>
+
   </div>
 </template>
 
 <script>
 import Header from "../components/header.vue";
-import { getSearchinstrument,getInstrumentList } from "../request/api";
-import { Notify,Toast } from "vant";
+import { getSearchinstrument,getInstrumentList,getJSSDKHELP,getUnBindSearch,Unboundinstrument } from "../request/api";
+import { Notify,Toast,List,Button,Dialog } from "vant";
 export default {
   name: "",
   components: {
     Header,
+    [Dialog.Component.name]: Dialog.Component, //Dialog.Component写成这样才生效
+    [Button.name]: Button,
   },
   data() {
     return {
       instrument_SN: "", //仪器号
       label: "", //耳环号
       page: 1, //第几页
-      limit: 1000, //每页限制
+      limit: 30, //每页限制
       instrumentList: [],
       keywordValue: "",
       isFocus: false,
+      loading: false,
+      finished: false,
+      refreshing: false,
+      roleId: 1,  // 1--库管   2--生产  3--维修  
+      isShow: false,
+      bindInfo:''
     };
   },
   activated() {
-		// this.getSearchinstrument();
-    },
-  mounted() {
+    this.roleId = this.$route.query.id;
+    console.log(this.roleId)
     this.getSearchinstrument();
   },
+  mounted() {
+    this.isWechat();
+  },
   methods: {
+    isWechat() {
+      const ua = window.navigator.userAgent.toLowerCase();
+      if (ua.match(/micromessenger/i) == 'micromessenger') {
+        // return true;
+        console.log('微信浏览器');
+        this.scanQRJssdk();
+      } else {
+        console.log('普通浏览器,请在手机微信浏览器打开此页面');
+        return false;
+      }
+    },
+    // 初始化sdk配置
+    async scanQRJssdk() {
+      // alert(`url链接:${window.location.href}`);
+	  const u = navigator.userAgent;
+      const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; // Android
+      const isIOS = navigator.platform.indexOf('iPhone') != -1;//ios
+       let url = '';
+      if (isAndroid) {
+        url = location.href;
+      }
+      if (isIOS) {
+        url = location.href.split('#')[0]; // hash模式下,#后面的部分如果带上ios中config会不对
+      }
+      const api = [];
+      // 'qrCode','barCode'
+      api.push('qrCode');
+      api.push('barCode');
+      // alert(url);
+      const resData = await getJSSDKHELP({ url });	// 根据接口返回appId，timestamp等数据
+      console.log('获取微信配置结果', resData);
+      if (resData) {
+        // alert(JSON.stringify(resData.data));
+        wx.config({
+          // beta: true,
+          debug: false,
+          appId: resData.data.appId,
+          timestamp: resData.data.timestamp,
+          nonceStr: resData.data.nonceStr,
+          signature: resData.data.signature,
+          jsApiList: ['checkJsApi', 'scanQRCode']
+        });
+        wx.ready(() => {
+          wx.checkJsApi({
+            jsApiList: ['scanQRCode'],
+            success(res) {
+              console.log('aaaa', res);
+            }
+          });
+        });
+        wx.error((res) => {
+          alert(`出错了：${res.errMsg}`);// 这个地方的好处就是wx.config配置错误，会弹出窗口哪里错误，然		后根据微信文档查询即可。
+        });
+      }
+    },
+   // 解绑
+    untieInstrument() {	// 点击的时候调起扫一扫功能呢
+      const that = this;
+      wx.scanQRCode({
+        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
+        success(res) {
+          const resultStrArr = res.resultStr.split(',');		
+          // 转为数组时为了避免扫描一维码是返回CODE_128,20180528前面会添加一个CODE_128所以转为数组获		取最后一条就行了
+          console.log(resultStrArr[resultStrArr.length - 1]); // 输出扫码信息
+          that.result = resultStrArr[resultStrArr.length - 1];
+          let label_sn = resultStrArr[resultStrArr.length - 1];
+          if(label_sn){
+            that.getUnBindSearch(label_sn);
+          }
+        },
+        fail(res) {
+          console.log('err', res);
+        }
+      });
+    },
+    /**
+     * 根据耳环编号解绑
+     */
+    getUnBindSearch(label_sn) {
+      let that = this;
+      getUnBindSearch({
+        label: label_sn
+      }).then((res) => {
+        if (res.data.success) {
+          that.bindInfo = res.data.msg;
+          that.isShow = true;
+        } else {
+            Toast(res.data.msg)
+        }
+      });
+    },
+    beforeClose(action, done) {
+      let that = this;
+      if(action === 'confirm') {
+        Unboundinstrument({
+          id: that.bindInfo.id
+        }).then((res) => {
+          if (res.data.success) {
+            that.isShow = false;
+            that.page = 1;
+            that.instrumentList = [];
+            that.getSearchinstrument();
+          } else {
+            Toast(res.data.msg)
+          }
+        });
+        done()
+      } else if(action === 'cancel') {
+        that.bindInfo = '';
+        that.isShow = false;
+        done() //关闭
+      }
+    },
     handleTitleBack() {
       this.$router.back();
     },
     getSearchinstrument() {
+      if (this.refreshing) {
+          this.refreshing = false;
+        }
+
       let that = this;
       getInstrumentList({
         instrument_SN: this.keywordValue,
@@ -108,8 +299,18 @@ export default {
         limit: this.limit,
       }).then((res) => {
         if (res.data.success) {
-          console.log(res);
-          that.instrumentList = res.data.msg;
+          let instrumentList = that.instrumentList;
+					instrumentList = that.page == 1 ? res.data.msg : instrumentList.concat(res.data.msg)
+
+          that.loading = false;
+
+          if(res && res.data && res.data.msg.length > 0){
+            that.page = that.page + 1;
+          }else{
+             that.finished = true;
+          }
+          
+          that.instrumentList = instrumentList;
         } else {
             Toast(res.data.msg)
           // alert("验证码发送失败");
@@ -117,9 +318,62 @@ export default {
         }
       });
     },
-    untieInstrument() {},
+    bindStore() {
+      let that = this;
+      this.$router.push({
+        path: "/instrumentStore",
+        query:{
+          id: that.roleId
+        }
+      });
+      // this.$router.push("/instrumentBind");
+      return;
+    },
+    bindStoreGPS() {
+      let that = this;
+      this.$router.push({
+        path: "/instrumentStoreGPS",
+        query:{
+          id: that.roleId
+        }
+      });
+      // this.$router.push("/instrumentBind");
+      return;
+    },
+    // 绑定耳环
     bindInstrument() {
-      this.$router.push("/instrumentBind");
+      let that = this;
+      this.$router.push({
+        path: "/instrumentBind",
+        query:{
+          id: that.roleId
+        }
+      });
+      // this.$router.push("/instrumentBind");
+      return;
+    },
+    // 绑定GPS
+    bindGPS() {
+      let that = this;
+      this.$router.push({
+        path: "/instrumentBindGPS",
+        query:{
+          id: that.roleId
+        }
+      });
+      // this.$router.push("/instrumentBind");
+      return;
+    },
+    // 维修
+    repairInstrument(){
+      let that = this;
+      this.$router.push({
+        path: "/instrumentRepair",
+        query:{
+          id: that.roleId
+        }
+      });
+      // this.$router.push("/instrumentBind");
       return;
     },
     changeInput() {
@@ -150,7 +404,19 @@ export default {
       } else {
         this.$refs.searchInput.focus(); //没有输入查询条件焦点不应该失去
       }
-    }
+    },
+    onDownLoad(){
+      this.getSearchinstrument();
+    },
+    onRefresh(){
+      // 清空列表数据
+      this.finished = false;
+      this.page = 1;
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true;
+      this.onDownLoad();
+    },
   },
 };
 </script>
@@ -178,7 +444,7 @@ export default {
     width: 90%;
 
   input {
-    width: 55%;
+    width: 40%;
     height: 80px;
     background: #f5f5f5;
     border-radius: 12px;
@@ -247,8 +513,34 @@ export default {
   color: #ffffff;
 }
 
-.search-list {
-  // height: 1000px;
+.view_bottom_left_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 88px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #307ff5;
+  font-size: 34px;
+  color: #307ff5;
+}
+
+.view_bottom_right_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 88px;
+  background: #307ff5;
+  border-radius: 12px;
+  border: 1px solid #307ff5;
+  font-size: 34px;
+  color: #ffffff;
+}
+
+.search-list-role{
+  height: 1110px;
   border: 0 none;
   background-color: #fff;
   width: 100%;
@@ -293,6 +585,77 @@ export default {
     }
   }
 }
+
+.search-list {
+  height: 960px;
+  border: 0 none;
+  background-color: #fff;
+  width: 100%;
+  padding: 0px 40px;
+  .search-result {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .search-result-view {
+      display: flex;
+      //   align-items: center;
+      justify-content: space-between;
+      padding: 30px 0px;
+      border-bottom: 1px solid #dddddd;
+
+      .search-result-view-left {
+        display: flex;
+        flex-direction: column;
+
+        .search-result-view-left-title {
+          font-size: 34px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #333333;
+        }
+
+        .search-result-view-left-lable {
+          font-size: 28px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #999999;
+          margin-top: 20px;
+        }
+      }
+    }
+
+    .result-null {
+      margin-top: 100px;
+      text-align: center;
+      font-size: 40px;
+    }
+  }
+}
+
+.search-result-view-right{
+  width: 40px;
+  height: 40px;
+}
+
+.dialog_item{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 50px 0px;
+    }
+
+    .dialog_item_title{
+      font-size: 36px;
+      color: #333333;
+    }
+
+    .dialog_item_lable{
+      font-size: 28px;
+      color: #666666;
+      margin-top: 10px;
+    }
 
 ::-webkit-scrollbar {
   width: 6px;

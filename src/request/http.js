@@ -6,7 +6,7 @@ import { Notify } from 'vant';
 import router from '../router/index'
 // 环境的切换
 // axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
-// axios.defaults.baseURL = 'http://ygldev.coyotebio-lab.com:8080/storemanage';
+// axios.defaults.baseURL = 'http://xmr.coyotebio-lab.com/storemanage';
 
 axios.defaults.baseURL = '/';
 

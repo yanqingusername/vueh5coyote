@@ -30,7 +30,8 @@
         />
         <img v-if="keywordValue" @click="clearSearchValue" style="width:18px;height:18px;position:absolute;right:15px;" src="../assets/images/deleteTest.png" alt="" />
       </div>
-      <div :class="roleId == 3 ? 'search-list-role':'search-list'">
+      <!-- <div :class="roleId == 3 ? 'search-list-role':'search-list'"> -->
+      <div class="search-list-role">
         <div class="search-result">
           <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
           <van-list
@@ -90,9 +91,9 @@
           
 
           <!-- 查询结果为空时候 -->
-          <div class="result-null" v-if="instrumentList.length == 0">
+          <!-- <div class="result-null" v-if="instrumentList.length == 0">
             还没有仪器
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="empty_view"></div>
@@ -404,13 +405,13 @@ export default {
         //上下键
         return;
       }
-      if (this.keywordValue.trim()) {
+      // if (this.keywordValue.trim()) {
             this.page = 1;
             this.instrumentList = [];
             this.getSearchinstrument();
-      } else {
+      // } else {
         this.$refs.searchInput.focus(); //没有输入查询条件焦点不应该失去
-      }
+      // }
     },
     onDownLoad(){
       if(this.page > 1){
@@ -550,7 +551,7 @@ export default {
 }
 
 .search-list-role{
-  height: 1110px;
+  // height: 1110px;
   border: 0 none;
   background-color: #fff;
   width: 100%;

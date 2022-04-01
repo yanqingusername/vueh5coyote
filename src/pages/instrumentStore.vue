@@ -339,6 +339,9 @@ export default {
   mounted() {
     this.isWechat();
   },
+  destroyed(){
+    this.setDataValue();
+  },
   methods: {
     onInstrumentChange(val) {
       let code = val.value.instrument_name;
@@ -524,40 +527,90 @@ export default {
       let that = this;
                 if(action === 'confirm') {
                   if(this.numberType == 1){
-                        this.label_sn = this.label_sn_old;
+                    if (this.label_sn_old) {
+                      this.label_sn = this.label_sn_old;
                         this.imgurl1 = this.imgurl1_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                        
                      }
                    
                    if(this.numberType == 0){
+                     if (this.chassis_sn_old) {
                       this.chassis_sn = this.chassis_sn_old;
                       this.imgurl = this.imgurl_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                      
                      }
                      if(this.numberType == 2){
-                       that.instrument_sn = that.instrument_sn_old;
+                       if (this.instrument_sn_old) {
+                        that.instrument_sn = that.instrument_sn_old;
                             that.imgurl2 = that.imgurl2_old;
 
                             if(that.instrument_name && that.instrument_sn){
                               that.getModule(that.instrument_sn,that.instrument_name);
                             }
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                      
+                      
                        
                      }
                      if(this.numberType == 3){
-                       this.num1_sn = this.num1_sn_old;
+                       if (this.num1_sn_old) {
+                      this.num1_sn = this.num1_sn_old;
                        this.imgurl3 = this.imgurl3_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }   
+                       
                      }
                      if(this.numberType == 4){
+                       if (this.num2_sn_old) {
                       this.num2_sn = this.num2_sn_old;
                       this.imgurl4 = this.imgurl4_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }   
+
+                      
                      }
                      if(this.numberType == 5){
-                       this.num3_sn = this.num3_sn_old;
+                       if (this.num3_sn_old) {
+                      this.num3_sn = this.num3_sn_old;
                        this.imgurl5 = this.imgurl5_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }   
+                       
                      }
                      if(this.numberType == 6){
-                       this.num4_sn = this.num4_sn_old;
+                       if (this.num4_sn_old) {
+                      this.num4_sn = this.num4_sn_old;
                        this.imgurl6 = this.imgurl6_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }   
+                       
                      }
-                   done()
                 } else if(action === 'cancel') {
                   this.chassis_sn = '';
                   this.labelIndex = -1;

@@ -319,6 +319,9 @@ export default {
         // this.getModules(this.instrument_sn,this.instrument_name);
     
   },
+  destroyed(){
+    this.setDataValue();
+  },
   methods: {
     // 首页上的绑定按钮 获取生产保存数据
     getModules(instrument_sn,instrument_name){
@@ -470,7 +473,7 @@ export default {
         if (res.data.success) {
           Dialog.confirm({
               title: '标题',
-              message: "确定解绑此机芯?",
+              message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
               confirmButtonText: '确定',
@@ -498,7 +501,7 @@ export default {
         if (res.data.success) {
           Dialog.confirm({
               title: '标题',
-              message: "确定解绑此机芯?",
+              message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
               confirmButtonText: '确定',
@@ -526,7 +529,7 @@ export default {
         if (res.data.success) {
           Dialog.confirm({
               title: '标题',
-              message: "确定解绑此机芯?",
+              message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
               confirmButtonText: '确定',
@@ -554,7 +557,7 @@ export default {
         if (res.data.success) {
           Dialog.confirm({
               title: '标题',
-              message: "确定解绑此机芯?",
+              message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
               confirmButtonText: '确定',
@@ -611,35 +614,84 @@ export default {
     beforeClose(action, done) {
                 if(action === 'confirm') {
                   if(this.numberType == 1){
-                        this.label_sn = this.label_sn_old;
+                    if (this.label_sn_old) {
+                      this.label_sn = this.label_sn_old;
                         this.imgurl1 = this.imgurl1_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                        
                      }
                    
                    if(this.numberType == 0){
+                     if (this.chassis_sn_old) {
                       this.chassis_sn = this.chassis_sn_old;
                       this.imgurl = this.imgurl_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                      
                      }
                      if(this.numberType == 2){
+                       if (this.instrument_sn_old) {
                        this.instrument_sn = this.instrument_sn_old;
                        this.imgurl2 = this.imgurl2_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                      
                      }
                      if(this.numberType == 3){
+                       if (this.num1_sn_old) {
                        this.num1_sn = this.num1_sn_old;
                        this.imgurl3 = this.imgurl3_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+
+                       
                      }
                      if(this.numberType == 4){
-                      this.num2_sn = this.num2_sn_old;
+                       if (this.num2_sn_old) {
+                       this.num2_sn = this.num2_sn_old;
                       this.imgurl4 = this.imgurl4_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                      
                      }
                      if(this.numberType == 5){
+                       if (this.num3_sn_old) {
                        this.num3_sn = this.num3_sn_old;
                        this.imgurl5 = this.imgurl5_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                       
                      }
                      if(this.numberType == 6){
+                       if (this.num4_sn_old) {
                        this.num4_sn = this.num4_sn_old;
                        this.imgurl6 = this.imgurl6_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                       
                      }
-                   done()
                 } else if(action === 'cancel') {
                   this.chassis_sn = '';
                   this.labelIndex = -1;

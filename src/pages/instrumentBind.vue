@@ -346,6 +346,9 @@ export default {
   mounted() {
     this.isWechat();
   },
+  destroyed(){
+    this.setDataValue();
+  },
   methods: {
     onInstrumentChange(val) {
       let code = val.value.instrument_name;
@@ -356,7 +359,9 @@ export default {
     // 首页上的绑定按钮 获取生产保存数据
     getBindbutn(){
       let that = this;
-      getBindbutn({}).then((res)=>{
+      getBindbutn({
+        type: 'label'
+      }).then((res)=>{
         if (res.data.success) {
           if(res.data.status == 1){
             let msg = res.data.msg;
@@ -527,11 +532,18 @@ export default {
       let that = this;
                 if(action === 'confirm') {
                   if(this.numberType == 1){
-                        this.label_sn = this.label_sn_old;
-                        this.imgurl1 = this.imgurl1_old;
-                     }
+                    if (this.label_sn_old) {
+                      this.label_sn = this.label_sn_old;
+                      this.imgurl1 = this.imgurl1_old;
+                      done()
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                  }
                    
                    if(this.numberType == 0){
+                     if (this.chassis_sn_old) {
                       searchSN({
                          type: '1',
                          SN: this.chassis_sn_old
@@ -539,79 +551,132 @@ export default {
                          if (res.data.success) {
                             that.chassis_sn = that.chassis_sn_old;
                             that.imgurl = that.imgurl_old;
+                            done()
                           } else {
                             Toast(res.data.msg)
+                            done()
                           }
                        })
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+                      
                      }
                      if(this.numberType == 2){
-                       searchSN({
+                       if (this.instrument_sn_old) {
+                      searchSN({
                          type: '0',
                          SN: this.instrument_sn_old
                        }).then((res)=>{
                          if (res.data.success) {
                             that.instrument_sn = that.instrument_sn_old;
                             that.imgurl2 = that.imgurl2_old;
+                            done()
                           } else {
                             Toast(res.data.msg)
+                            done()
                           }
                        })
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+
+                       
                      }
                      if(this.numberType == 3){
-                       searchSN({
+                       if (this.num1_sn_old) {
+                      searchSN({
                          type: '1',
                          SN: this.num1_sn_old
                        }).then((res)=>{
                          if (res.data.success) {
                             that.num1_sn = that.num1_sn_old;
                             that.imgurl3 = that.imgurl3_old;
+                            done()
                           } else {
                             Toast(res.data.msg)
+                            done()
                           }
                        })
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+
+                       
                      }
                      if(this.numberType == 4){
-                       searchSN({
+                       if (this.num2_sn_old) {
+                      searchSN({
                          type: '1',
                          SN: this.num2_sn_old
                        }).then((res)=>{
                          if (res.data.success) {
                             that.num2_sn = that.num2_sn_old;
                             that.imgurl4 = that.imgurl4_old;
+                            done()
                           } else {
                             Toast(res.data.msg)
+                            done()
                           }
                        })
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }
+
+                       
                      }
                      if(this.numberType == 5){
-                       searchSN({
+
+                       if (this.num3_sn_old) {
+                      searchSN({
                          type: '1',
                          SN: this.num3_sn_old
                        }).then((res)=>{
                          if (res.data.success) {
                             that.num3_sn = that.num3_sn_old;
                        that.imgurl5 = that.imgurl5_old;
+                       done()
                           } else {
                             Toast(res.data.msg)
+                            done()
                           }
                        })
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+
+                       
                        
                      }
                      if(this.numberType == 6){
-                       searchSN({
+                       if (this.num4_sn_old) {
+                      searchSN({
                          type: '1',
                          SN: this.num4_sn_old
                        }).then((res)=>{
                          if (res.data.success) {
                            that.num4_sn = that.num4_sn_old;
                        that.imgurl6 = that.imgurl6_old;
+                       done()
                           } else {
                             Toast(res.data.msg)
+                            done()
                           }
                        })
+                    }else{
+                      Toast('请选择编号');
+                      return done(false)
+                    }    
+
+                       
                        
                      }
-                   done()
+                   
                 } else if(action === 'cancel') {
                   this.chassis_sn = '';
                   this.labelIndex = -1;

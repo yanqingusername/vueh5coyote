@@ -169,7 +169,7 @@ export default {
       padding: 20px 0px;
       font-size: 28px;
       padding-left: 20px;;
-
+height: 90px;
       border-bottom: solid 1px #DDDDDD;
       background: #ffffff;
     }

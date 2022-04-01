@@ -709,7 +709,7 @@ export default {
       this.instrument_sn = event.currentTarget.value;
 
       if (this.instrument_name == '') {
-        Toast('请先选择仪器名称');
+        Toast('请先选择仪器类型');
         return;
       }
       if(this.instrument_sn && this.instrument_name){
@@ -720,7 +720,7 @@ export default {
      handleFileImg2() {
       let that = this;
        if (this.instrument_name == '') {
-        Toast('请先选择仪器名称');
+        Toast('请先选择仪器类型');
         return;
       }
 
@@ -1010,7 +1010,7 @@ export default {
       let number = e.target.dataset.number;
       let that = this;
       if (this.instrument_name == '') {
-        Toast('请选择仪器名称');
+        Toast('请选择仪器类型');
         return;
       }
 

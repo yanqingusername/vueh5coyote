@@ -45,7 +45,7 @@
             <div class="search-result-view" v-if="roleId == 1">
               <div class="search-result-view-left">
                 <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
-                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器名称：{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器类型：{{ item.instrument_name }}</div>
                 <div class="search-result-view-left-lable" v-if="item.label">耳环：{{ item.label }}</div>
                 <div class="search-result-view-left-lable" v-if="item.gps">GPS：{{ item.gps }}</div>
                 <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div>
@@ -60,7 +60,7 @@
             <div class="search-result-view" v-if="roleId == 2">
               <div class="search-result-view-left">
                 <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
-                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器名称：{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器类型：{{ item.instrument_name }}</div>
                 <div class="search-result-view-left-lable" v-if="item.label">耳环：{{ item.label }}</div>
                 <div class="search-result-view-left-lable" v-if="item.gps">GPS：{{ item.gps }}</div>
                 <!-- <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div> -->
@@ -75,7 +75,7 @@
             <div class="search-result-view" v-if="roleId == 3">
               <div class="search-result-view-left">
                 <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
-                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器名称：{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器类型：{{ item.instrument_name }}</div>
               </div>
               <div class="search-result-view-right">
                 <img @click="repairInstrument"
@@ -126,7 +126,7 @@
     <div class="dialog_item">
         <div class="dialog_item_title">确认解绑该仪器？</div>
         <div class="dialog_item_lable">仪器序列号：{{bindInfo.instrument_SN}}</div>
-        <div class="dialog_item_lable">仪器名称：{{bindInfo.instrument_name}}</div>
+        <div class="dialog_item_lable">仪器类型：{{bindInfo.instrument_name}}</div>
         <div class="dialog_item_lable">耳环编号：{{bindInfo.label}}</div>
     </div>
     </van-dialog>

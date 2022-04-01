@@ -1103,7 +1103,7 @@ export default {
         return;
       }
       if (this.instrument_name == '') {
-        Toast('请选择仪器名称');
+        Toast('请选择仪器类型');
         return;
       }
       

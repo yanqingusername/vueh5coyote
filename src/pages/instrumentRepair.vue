@@ -376,6 +376,26 @@ export default {
                   }
                 }
               }
+            } else {
+              that.chassisid = "";
+                  that.chassis_sn = "";
+                  that.imgurl = "";
+
+                  that.numid1 = "";
+                    that.imgurl3 = "";
+                    that.num1_sn = "";
+
+                    that.numid2 = "";
+                    that.imgurl4 = "";
+                    that.num2_sn = "";
+
+                  that.numid3 = "";
+                    that.imgurl5 = "";
+                    that.num3_sn = "";
+
+                    that.numid4 = "";
+                    that.imgurl6 = "";
+                    that.num4_sn = "";
             }
 
             if(that.chassis_sn){

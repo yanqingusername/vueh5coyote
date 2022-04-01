@@ -2,7 +2,7 @@
   <div class="login-section">
     <div class="root_header">
       <img class="icon_logo" src="../../assets/images/icon_logo.png" alt="" />
-      <div class="icon_login_text">库房仪器管理系统</div>
+      <div class="icon_login_text">仓库仪器管理系统</div>
     </div>
 
     <div class="main">

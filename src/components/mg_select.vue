@@ -22,7 +22,7 @@ export default {
   name: "DropDownList",
   data() {
     return {
-      activeIndex: -1
+      // activeIndex: -1
     };
   },
   props: {

@@ -504,6 +504,7 @@ export default {
       });
     },
      handleTitleBack() {
+       this.setDataValue();
       this.$router.back();
     },
     bindSelect(e){
@@ -1122,7 +1123,23 @@ export default {
               confirmButtonText: '继续绑定',
               confirmButtonColor: '#307FF5'
             }).then(() => {
-              that.instrumentID = "";
+              that.setDataValue();
+            }).catch(() => {
+              that.setDataValue();
+              this.$router.replace({
+                  path: "/instrumentList",
+                  query:{id: that.roleId}
+              });
+            });
+          } else {
+            Toast(res.data.msg)
+          }
+        });
+      }
+    },
+    setDataValue(){
+      let that = this;
+      that.instrumentID = "";
               that.label_sn= "";
               that.chassisid= "";
               that.chassis_sn= "";
@@ -1163,17 +1180,6 @@ export default {
               that.imgurl6_old= "";
               that.instrument_name = "";
               that.instrumentIndex = -1;
-            }).catch(() => {
-              this.$router.replace({
-                  path: "/instrumentList",
-                  query:{id: that.roleId}
-              });
-            });
-          } else {
-            Toast(res.data.msg)
-          }
-        });
-      }
     },
     // ImagePreview(e){
     //   let img = e.target.dataset.img;

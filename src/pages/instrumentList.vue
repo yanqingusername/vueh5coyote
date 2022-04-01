@@ -165,11 +165,12 @@ export default {
   activated() {
     this.roleId = this.$route.query.id;
     console.log(this.roleId)
-
+    this.page = 1;
+    this.instrumentList = [];
+    this.getSearchinstrument();
   },
   mounted() {
     this.isWechat();
-    this.getSearchinstrument();
   },
   methods: {
     isWechat() {
@@ -308,9 +309,7 @@ export default {
           that.loading = false;
 
           if(res && res.data && res.data.msg.length > 0){
-            console.log(res.data.msg.length)
             that.page = that.page + 1;
-            console.log(that.page)
           }else{
              that.finished = true;
           }
@@ -389,7 +388,6 @@ export default {
       this.isFocus = true;
     },
     clearSearchValue() {
-      console.log('22222')
       //清空输入的查询条件
       if (this.keywordValue) {
         this.keywordValue = ""; //搜索关键字
@@ -400,14 +398,12 @@ export default {
       }
     },
     clickSearch() {
-      console.log('33333')
       //查询
       if (event.code == "ArrowDown" || event.code == "ArrowUp") {
         //上下键
         return;
       }
       if (this.keywordValue.trim()) {
-            console.log(this.keywordValue)
             this.page = 1;
             this.instrumentList = [];
             this.getSearchinstrument();
@@ -416,7 +412,6 @@ export default {
       }
     },
     onDownLoad(){
-      console.log('44444')
       if(this.page > 1){
         this.getSearchinstrument();
       }

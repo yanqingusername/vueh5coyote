@@ -678,31 +678,34 @@ export default {
                       'api_secret': 'GNl9vID_5KjzzbG2UG51vswvYeb06vnu',
                   }).then((res)=>{
                     console.log(res)
+                    if(res && res.data && res.data.text_info){
                       that.numberList = res.data.text_info;
                     
-                    let numberListNew = [];
-                    let reg = /[^a-z\d]/ig;
-                    for(let i =0;i< that.numberList.length;i++){
-                      let item = that.numberList[i];
-                      if(item.line_content!= null && item.line_content != ""){
-                        if(item.line_content.indexOf(":") >=0 || item.line_content.indexOf("：")>=0){
-                          item.line_content = item.line_content.split(":")[1] || item.line_content.split("：")[1];
-                          item.line_content = item.line_content.replace(reg, "")
-                        }else{
-                          item.line_content = item.line_content.replace(reg, "")
-                        }
-                        if(item.line_content.length >= that.lableLength){
-                          numberListNew.push(item);
-                        }
-                      }  
-                    }
-                    that.numberList = numberListNew
+                      let numberListNew = [];
+                      let reg = /[^a-z\d]/ig;
+                      for(let i =0;i< that.numberList.length;i++){
+                        let item = that.numberList[i];
+                        if(item.line_content!= null && item.line_content != ""){
+                          if(item.line_content.indexOf(":") >=0 || item.line_content.indexOf("：")>=0){
+                            item.line_content = item.line_content.split(":")[1] || item.line_content.split("：")[1];
+                            item.line_content = item.line_content.replace(reg, "")
+                          }else{
+                            item.line_content = item.line_content.replace(reg, "")
+                          }
+                          if(item.line_content.length >= that.lableLength){
+                            numberListNew.push(item);
+                          }
+                        }  
+                      }
+                      that.numberList = numberListNew
                       if(that.numberList.length> 0){
                         that.labelIndex= -1;
                         that.isShow = true;
                         that.numberType = number;
                       }
-                   
+                    }else{
+                      Toast('识别失败,请重新上传图片');
+                    }
                   });
       }
     },

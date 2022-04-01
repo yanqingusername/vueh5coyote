@@ -171,7 +171,8 @@ export default {
       padding-left: 20px;;
 height: 90px;
       border-bottom: solid 1px #DDDDDD;
-      background: #ffffff;
+      background: #DDDDDD;
+    color: #333333;
     }
     li:last-child {
       border-bottom: none;

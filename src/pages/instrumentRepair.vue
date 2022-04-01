@@ -756,7 +756,7 @@ export default {
                       'api_secret': 'GNl9vID_5KjzzbG2UG51vswvYeb06vnu',
                   }).then((res)=>{
                     console.log(res)
-                    if(res && res.data && res.data.text_info){
+                    if(res && res.data && res.data.text_info && res.data.text_info.length > 0){
                       that.numberList = res.data.text_info;
                     
                       let numberListNew = [];
@@ -1251,14 +1251,22 @@ export default {
           if (res.data.success) {
             Dialog.confirm({
               title: '提示',
-              message: res.data.msg,
+              message: '编辑成功',
+              showCancelButton: false,
               cancelButtonText: '返回首页',
               cancelButtonColor:'#666666',
-              confirmButtonText: '继续编辑',
+              confirmButtonText: '返回首页',
               confirmButtonColor: '#307FF5'
             }).then(() => {
+              // that.setDataValue();
+              // this.getModules(that.instrument_sn,that.instrument_name);
               that.setDataValue();
-              this.getModules(that.instrument_sn,that.instrument_name);
+              that.instrument_sn= "";
+              that.instrument_name = "";
+              this.$router.replace({
+                  path: "/instrumentList",
+                  query:{id: that.roleId}
+              });
             }).catch(() => {
               that.setDataValue();
               that.instrument_sn= "";

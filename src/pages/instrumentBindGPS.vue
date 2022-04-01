@@ -676,7 +676,7 @@ export default {
                       'api_secret': 'GNl9vID_5KjzzbG2UG51vswvYeb06vnu',
                   }).then((res)=>{
                     console.log(res)
-                    if(res && res.data && res.data.text_info){
+                    if(res && res.data && res.data.text_info && res.data.text_info.length > 0){
                       that.numberList = res.data.text_info;
                     
                       let numberListNew = [];

@@ -107,22 +107,22 @@ export default {
         Toast('手机号有误')
           // Notify({ type: 'danger', message: '手机号有误'});
         return;
-      // } else if (this.code == "") {
-      //   Toast('请填写验证码')
-      //     // Notify({ type: 'danger', message: '请填写验证码'});
-      //   return;
-      // } else if (this.phoneSub == "") {
-      //   Toast('请获取验证码')
-      //   // Notify({ type: 'danger', message: '请获取验证码'});
-      //   return;
-      // } else if (this.phoneSub != this.phone) {
-      //   Toast('验证码过期')
-      //     // Notify({ type: 'danger', message: '验证码过期'});
-      //   return;
-      // } else if (this.codeSub != this.code) {
-      //   Toast('验证码错误')
-      //     // Notify({ type: 'danger', message: '验证码错误'});
-      //   return;
+      } else if (this.code == "") {
+        Toast('请填写验证码')
+          // Notify({ type: 'danger', message: '请填写验证码'});
+        return;
+      } else if (this.phoneSub == "") {
+        Toast('请获取验证码')
+        // Notify({ type: 'danger', message: '请获取验证码'});
+        return;
+      } else if (this.phoneSub != this.phone) {
+        Toast('验证码过期')
+          // Notify({ type: 'danger', message: '验证码过期'});
+        return;
+      } else if (this.codeSub != this.code) {
+        Toast('验证码错误')
+          // Notify({ type: 'danger', message: '验证码错误'});
+        return;
       } else {
         getLogin({
           phone: this.phone,

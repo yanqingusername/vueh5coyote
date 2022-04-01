@@ -21,6 +21,7 @@
               type="text"
               name="gps_sn"
               placeholder="请填写/扫描GPS信息"
+              :onkeyup="gps_sn=gps_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"
             />
             <div class="pic-div">
@@ -39,6 +40,7 @@
               type="text"
               name="instrument_sn"
               placeholder="请填写/扫描仪器SN号"
+              :onkeyup="instrument_sn=instrument_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"/>
             <div class="pic-div">
                 
@@ -56,6 +58,7 @@
               type="text"
               name="chassis_sn"
               placeholder="请填写/扫描机芯编号"
+              :onkeyup="chassis_sn=chassis_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="uni_chassis_sn"/>
             <div class="pic-div" v-if="uni_chassis_sn" @click="untieBind">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
@@ -80,6 +83,7 @@
               type="text"
               name="num1_sn"
               placeholder="模块1编号"
+              :onkeyup="num1_sn=num1_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="uni_num1_sn"/>
             <div class="pic-div" v-if="uni_num1_sn" @click="untieModule1">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
@@ -101,6 +105,7 @@
               type="text"
               name="num2_sn"
               placeholder="模块2编号"
+              :onkeyup="num2_sn=num2_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="uni_num2_sn"/>
             <div class="pic-div" v-if="uni_num2_sn" @click="untieModule2">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
@@ -122,6 +127,7 @@
               type="text"
               name="num3_sn"
               placeholder="模块3编号"
+              :onkeyup="num3_sn=num3_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="uni_num3_sn"/>
             <div class="pic-div" v-if="uni_num3_sn" @click="untieModule3">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
@@ -142,6 +148,7 @@
               type="text"
               name="num4_sn"
               placeholder="模块4编号"
+              :onkeyup="num4_sn=num4_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="uni_num4_sn"/>
             <div class="pic-div" v-if="uni_num4_sn" @click="untieModule4">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
@@ -445,7 +452,7 @@ export default {
       }).then((res)=>{
         if (res.data.success) {
           Dialog.confirm({
-              title: '标题',
+              title: '提示',
               message: "确定解绑此机芯?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
@@ -472,7 +479,7 @@ export default {
       }).then((res)=>{
         if (res.data.success) {
           Dialog.confirm({
-              title: '标题',
+              title: '提示',
               message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
@@ -500,7 +507,7 @@ export default {
       }).then((res)=>{
         if (res.data.success) {
           Dialog.confirm({
-              title: '标题',
+              title: '提示',
               message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
@@ -528,7 +535,7 @@ export default {
       }).then((res)=>{
         if (res.data.success) {
           Dialog.confirm({
-              title: '标题',
+              title: '提示',
               message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
@@ -556,7 +563,7 @@ export default {
       }).then((res)=>{
         if (res.data.success) {
           Dialog.confirm({
-              title: '标题',
+              title: '提示',
               message: "确定解绑此模块?",
               cancelButtonText: '取消',
               cancelButtonColor:'#666666',
@@ -1240,7 +1247,7 @@ export default {
         }).then((res) => {
           if (res.data.success) {
             Dialog.confirm({
-              title: '标题',
+              title: '提示',
               message: res.data.msg,
               cancelButtonText: '返回首页',
               cancelButtonColor:'#666666',

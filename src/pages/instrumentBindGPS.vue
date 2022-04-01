@@ -32,6 +32,7 @@
               type="text"
               name="instrument_sn"
               placeholder="请填写/扫描仪器SN号"
+              :onkeyup="instrument_sn=instrument_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img2">
@@ -52,6 +53,7 @@
               type="text"
               name="label_sn"
               placeholder="请填写/扫描GPS编号"
+              :onkeyup="label_sn=label_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"
             />
             <div class="pic-div">
@@ -73,6 +75,7 @@
               type="text"
               name="chassis_sn"
               placeholder="请填写/扫描机芯编号"
+              :onkeyup="chassis_sn=chassis_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img">
@@ -93,6 +96,7 @@
               type="text"
               name="num1_sn"
               placeholder="模块1编号"
+              :onkeyup="num1_sn=num1_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img3">
@@ -109,6 +113,7 @@
               type="text"
               name="num2_sn"
               placeholder="模块2编号"
+              :onkeyup="num2_sn=num2_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img4">
@@ -125,6 +130,7 @@
               type="text"
               name="num3_sn"
               placeholder="模块3编号"
+              :onkeyup="num3_sn=num3_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img5">
@@ -141,6 +147,7 @@
               type="text"
               name="num4_sn"
               placeholder="模块4编号"
+              :onkeyup="num4_sn=num4_sn.replace(/[^\w\.\/]/ig,'')"
               :disabled="isEdit"/>
             <div class="pic-div">
                 <img class="pic-img-item" id="img6">
@@ -1098,10 +1105,7 @@ export default {
     bindInstrument(e) {
       let number = e.target.dataset.number;
       let that = this;
-      if (this.label_sn == '') {
-        Toast('GPS编号不能为空');
-        return;
-      }
+      
       if (this.instrument_name == '') {
         Toast('请选择仪器类型');
         return;
@@ -1109,6 +1113,11 @@ export default {
 
       if (this.instrument_sn == '') {
         Toast('仪器序列号不能为空');
+        return;
+      }
+
+      if (this.label_sn == '') {
+        Toast('GPS编号不能为空');
         return;
       }
       // if (this.chassis == '') {
@@ -1172,7 +1181,7 @@ export default {
         }).then((res) => {
           if (res.data.success) {
             Dialog.confirm({
-              title: '标题',
+              title: '提示',
               message: res.data.msg,
               cancelButtonText: '返回首页',
               cancelButtonColor:'#666666',

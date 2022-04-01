@@ -138,6 +138,7 @@
 import Header from "../components/header.vue";
 import { getInstrumentList,getJSSDKHELP,getUnBindSearch,Unboundinstrument } from "../request/api";
 import { Notify,Toast,List,Button,Dialog } from "vant";
+import wx from 'jweixin-module';
 export default {
   name: "",
   components: {

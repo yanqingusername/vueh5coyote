@@ -45,9 +45,9 @@
             <div class="search-result-view" v-if="roleId == 1">
               <div class="search-result-view-left">
                 <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
-                <div class="search-result-view-left-lable">{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器名称：{{ item.instrument_name }}</div>
                 <div class="search-result-view-left-lable" v-if="item.label">耳环：{{ item.label }}</div>
-                <!-- <div class="search-result-view-left-lable" v-if="item.storenamegps">GPS：{{ item.storenamegps }}</div> -->
+                <div class="search-result-view-left-lable" v-if="item.gps">GPS：{{ item.gps }}</div>
                 <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div>
               </div>
               <div class="search-result-view-left">
@@ -60,10 +60,10 @@
             <div class="search-result-view" v-if="roleId == 2">
               <div class="search-result-view-left">
                 <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
-                <div class="search-result-view-left-lable">{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器名称：{{ item.instrument_name }}</div>
                 <div class="search-result-view-left-lable" v-if="item.label">耳环：{{ item.label }}</div>
-                <!-- <div class="search-result-view-left-lable" v-if="item.storenamegps">GPS：{{ item.storenamegps }}</div> -->
-                <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div>
+                <div class="search-result-view-left-lable" v-if="item.gps">GPS：{{ item.gps }}</div>
+                <!-- <div class="search-result-view-left-lable" v-if="item.storename">库房：{{ item.storename }}</div> -->
               </div>
               <div class="search-result-view-left">
                 <div
@@ -75,7 +75,7 @@
             <div class="search-result-view" v-if="roleId == 3">
               <div class="search-result-view-left">
                 <div class="search-result-view-left-title">{{ item.instrument_SN }}</div>
-                <div class="search-result-view-left-lable">{{ item.instrument_name }}</div>
+                <div class="search-result-view-left-lable" v-if="item.instrument_name">仪器名称：{{ item.instrument_name }}</div>
               </div>
               <div class="search-result-view-right">
                 <img @click="repairInstrument"
@@ -125,9 +125,9 @@
     >
     <div class="dialog_item">
         <div class="dialog_item_title">确认解绑该仪器？</div>
-        <div class="dialog_item_lable">仪器类型：12344556666666</div>
-        <div class="dialog_item_lable">仪器：12344556666666</div>
-        <div class="dialog_item_lable">耳环编号：13636363636</div>
+        <div class="dialog_item_lable">仪器序列号：{{bindInfo.instrument_SN}}</div>
+        <div class="dialog_item_lable">仪器名称：{{bindInfo.instrument_name}}</div>
+        <div class="dialog_item_lable">耳环编号：{{bindInfo.label}}</div>
     </div>
     </van-dialog>
 
@@ -136,7 +136,7 @@
 
 <script>
 import Header from "../components/header.vue";
-import { getSearchinstrument,getInstrumentList,getJSSDKHELP,getUnBindSearch,Unboundinstrument } from "../request/api";
+import { getInstrumentList,getJSSDKHELP,getUnBindSearch,Unboundinstrument } from "../request/api";
 import { Notify,Toast,List,Button,Dialog } from "vant";
 export default {
   name: "",
@@ -165,10 +165,11 @@ export default {
   activated() {
     this.roleId = this.$route.query.id;
     console.log(this.roleId)
-    this.getSearchinstrument();
+
   },
   mounted() {
     this.isWechat();
+    this.getSearchinstrument();
   },
   methods: {
     isWechat() {
@@ -307,7 +308,9 @@ export default {
           that.loading = false;
 
           if(res && res.data && res.data.msg.length > 0){
+            console.log(res.data.msg.length)
             that.page = that.page + 1;
+            console.log(that.page)
           }else{
              that.finished = true;
           }
@@ -386,6 +389,7 @@ export default {
       this.isFocus = true;
     },
     clearSearchValue() {
+      console.log('22222')
       //清空输入的查询条件
       if (this.keywordValue) {
         this.keywordValue = ""; //搜索关键字
@@ -396,6 +400,7 @@ export default {
       }
     },
     clickSearch() {
+      console.log('33333')
       //查询
       if (event.code == "ArrowDown" || event.code == "ArrowUp") {
         //上下键
@@ -411,16 +416,20 @@ export default {
       }
     },
     onDownLoad(){
-      this.getSearchinstrument();
+      console.log('44444')
+      if(this.page > 1){
+        this.getSearchinstrument();
+      }
     },
     onRefresh(){
       // 清空列表数据
       this.finished = false;
       this.page = 1;
+      this.instrumentList = [];
       // 重新加载数据
       // 将 loading 设置为 true，表示处于加载状态
       this.loading = true;
-      this.onDownLoad();
+      this.getSearchinstrument();
     },
   },
 };

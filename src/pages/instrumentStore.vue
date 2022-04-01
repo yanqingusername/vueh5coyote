@@ -278,13 +278,13 @@ export default {
       isShowInstrument: true,
       instrumentList:[
         {
-          'instrument_name': 'mini8'
+          'instrument_name': 'Flash 20'
         },
         {
-          'instrument_name': 'flash20'
+          'instrument_name': 'Min8 Plus'
         },
         {
-          'instrument_name': 'mini8'
+          'instrument_name': 'Gentier 48E'
         }
       ],
       instrumentIndex: -1,

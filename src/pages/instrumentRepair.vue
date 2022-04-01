@@ -57,11 +57,11 @@
               name="chassis_sn"
               placeholder="请填写/扫描机芯编号"
               :disabled="chassis_sn?true:false"/>
-            <div class="pic-div" v-if="chassis_sn">
+            <div class="pic-div" v-if="chassis_sn" @click="untieBind">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
-              <div class="pic-div" v-else @click="untieBind">
+              <div class="pic-div" v-else >
                 <img class="pic-img-item" id="img">
                   <img class="pic-img-icon" src="../assets/images/camera.png" alt="" />
                   <input class="img-item" type="file" accept="image/*" id="uploadImg" name="uploadImg" alt="" @change="handleFileImg" />
@@ -81,7 +81,7 @@
               name="num1_sn"
               placeholder="模块1编号"
               :disabled="num1_sn?true:false"/>
-            <div class="pic-div" v-if="num1_sn" @click="untieBind">
+            <div class="pic-div" v-if="num1_sn" @click="untieModule1">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -102,7 +102,7 @@
               name="num2_sn"
               placeholder="模块2编号"
               :disabled="num2_sn?true:false"/>
-            <div class="pic-div" v-if="num2_sn" @click="untieBind">
+            <div class="pic-div" v-if="num2_sn" @click="untieModule2">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -123,7 +123,7 @@
               name="num3_sn"
               placeholder="模块3编号"
               :disabled="num3_sn?true:false"/>
-            <div class="pic-div" v-if="num3_sn" @click="untieBind">
+            <div class="pic-div" v-if="num3_sn" @click="untieModule3">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -143,7 +143,7 @@
               name="num4_sn"
               placeholder="模块4编号"
               :disabled="num4_sn?true:false"/>
-            <div class="pic-div" v-if="num4_sn" @click="untieBind">
+            <div class="pic-div" v-if="num4_sn" @click="untieModule4">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -161,34 +161,34 @@
         <div class="icon_login_text">图片记录</div>
         <div class="form-item" style="border-bottom: none;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt="" @click="ImagePreviews" :data-img="imgurl2"/>
+            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt=""/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">仪器序列号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" @click="ImagePreviews" :data-img="imgurl"/>
+            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" :data-img="imgurl"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">机芯编号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" @click="ImagePreviews" :data-img="imgurl3"/>
+            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" :data-img="imgurl3"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块1</div>
           </div>
           <div class="img_1_view">
-           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt="" @click="ImagePreviews" :data-img="imgurl4"/>
+           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt=""  :data-img="imgurl4"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块2</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt="" @click="ImagePreviews" :data-img="imgurl5"/>
+            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt=""  :data-img="imgurl5"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块3</div>
           </div>
         </div>
         <div class="form-item" style="border-bottom: none;padding-left: 6px;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" @click="ImagePreviews" :data-img="imgurl6"/>
+            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" :data-img="imgurl6"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块4</div>
           </div>
@@ -238,7 +238,7 @@
 import Header from "../components/header.vue";
 import { udateH5Images,uploadImgSelect,uploadImgBind ,bindinstrument, getJSSDKHELP,saveinstrument,getModule,UnboundModule} from "../request/api";
 // import { Notify } from "vant";
-import { Button,Dialog ,Uploader,Toast,ImagePreview,Loading} from 'vant';
+import {Dialog ,Uploader,Toast,ImagePreview,Loading} from 'vant';
 import wx from 'jweixin-module';
 
 var imgurl1= ''
@@ -254,9 +254,7 @@ export default {
   components: {
     Header,
     [Dialog.Component.name]: Dialog.Component, //Dialog.Component写成这样才生效
-    [Button.name]: Button,
-    Uploader,
-    ImagePreview
+    Uploader
   },
   data() {
     return {
@@ -265,6 +263,7 @@ export default {
       roleId: 1,  // 1--库管   2--生产  3--维修
       instrumentID: "",
       label_sn: "",
+      chassisid: "",
       chassis_sn: "",
       instrument_sn: "",
       numid1: "",
@@ -309,14 +308,15 @@ export default {
     this.instrument_sn = this.$route.query.sn;
     this.instrument_name = this.$route.query.snn;
     console.log(this.roleId,this.instrument_sn,this.instrument_name)
-    this.getModule(this.instrument_sn,this.instrument_name);
+    this.getModules(this.instrument_sn,this.instrument_name);
   },
   mounted() {
+        // this.getModules(this.instrument_sn,this.instrument_name);
     
   },
   methods: {
     // 首页上的绑定按钮 获取生产保存数据
-    getModule(instrument_sn,instrument_name){
+    getModules(instrument_sn,instrument_name){
       let that = this;
       getModule({
         SN: instrument_sn,
@@ -371,9 +371,133 @@ export default {
       });
     },
     untieBind(){
-      UnboundModule({}).then((res)=>{
+      let that = this;
+      UnboundModule({
+        id: that.instrumentID,
+        module_id: that.chassisid
+      }).then((res)=>{
         if (res.data.success) {
-          console.log('--UnboundModule-->:',res)
+          Dialog.confirm({
+              title: '标题',
+              message: "确定解绑此机芯?",
+              cancelButtonText: '取消',
+              cancelButtonColor:'#666666',
+              confirmButtonText: '确定',
+              confirmButtonColor: '#307FF5'
+            }).then(() => {
+              that.chassisid = "";
+              that.chassis_sn = "";
+              that.imgurl = "";
+            }).catch(() => {
+              
+            });
+        } else {
+          Toast(res.data.msg)
+        }
+      });
+    },
+    untieModule1(){
+      let that = this;
+      UnboundModule({
+        id: that.instrumentID,
+        module_id: that.numid1
+      }).then((res)=>{
+        if (res.data.success) {
+          Dialog.confirm({
+              title: '标题',
+              message: "确定解绑此机芯?",
+              cancelButtonText: '取消',
+              cancelButtonColor:'#666666',
+              confirmButtonText: '确定',
+              confirmButtonColor: '#307FF5'
+            }).then(() => {
+              that.numid1 = "";
+              that.imgurl3 = "";
+              that.num1_sn = "";
+            }).catch(() => {
+              
+            });
+          
+        } else {
+          Toast(res.data.msg)
+        }
+      });
+    },
+    untieModule2(){
+      let that = this;
+      UnboundModule({
+        id: that.instrumentID,
+        module_id: that.numid2
+      }).then((res)=>{
+        if (res.data.success) {
+          Dialog.confirm({
+              title: '标题',
+              message: "确定解绑此机芯?",
+              cancelButtonText: '取消',
+              cancelButtonColor:'#666666',
+              confirmButtonText: '确定',
+              confirmButtonColor: '#307FF5'
+            }).then(() => {
+              that.numid2 = "";
+              that.imgurl4 = "";
+              that.num2_sn = "";
+            }).catch(() => {
+              
+            });
+          
+        } else {
+          Toast(res.data.msg)
+        }
+      });
+    },
+    untieModule3(){
+      let that = this;
+      UnboundModule({
+        id: that.instrumentID,
+        module_id: that.numid3
+      }).then((res)=>{
+        if (res.data.success) {
+          Dialog.confirm({
+              title: '标题',
+              message: "确定解绑此机芯?",
+              cancelButtonText: '取消',
+              cancelButtonColor:'#666666',
+              confirmButtonText: '确定',
+              confirmButtonColor: '#307FF5'
+            }).then(() => {
+              that.numid3 = "";
+              that.imgurl5 = "";
+              that.num3_sn = "";
+            }).catch(() => {
+              
+            });
+          
+        } else {
+          Toast(res.data.msg)
+        }
+      });
+    },
+    untieModule4(){
+      let that = this;
+      UnboundModule({
+        id: that.instrumentID,
+        module_id: that.numid4
+      }).then((res)=>{
+        if (res.data.success) {
+          Dialog.confirm({
+              title: '标题',
+              message: "确定解绑此机芯?",
+              cancelButtonText: '取消',
+              cancelButtonColor:'#666666',
+              confirmButtonText: '确定',
+              confirmButtonColor: '#307FF5'
+            }).then(() => {
+              that.numid4 = "";
+              that.imgurl6 = "";
+              that.num4_sn = "";
+            }).catch(() => {
+              
+            });
         } else {
           Toast(res.data.msg)
         }
@@ -1051,12 +1175,12 @@ export default {
         });
       }
     },
-    ImagePreviews(e){
-      let img = e.target.dataset.img;
-      if(img){
-        ImagePreview([img]);
-      }
-    },
+    // ImagePreview(e){
+    //   let img = e.target.dataset.img;
+    //   if(img){
+    //     ImagePreview([img]);
+    //   }
+    // },
     canvasDataURL (path, obj, callback) {
       let img = new Image()
       img.src = path

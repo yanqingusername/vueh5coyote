@@ -17,9 +17,9 @@
         <div class="form-item">
           <div class="select-item input-item">
             <input
-              v-model="label_sn"
+              v-model="gps_sn"
               type="text"
-              name="label_sn"
+              name="gps_sn"
               placeholder="请填写/扫描GPS信息"
               :disabled="isEdit"
             />
@@ -56,8 +56,8 @@
               type="text"
               name="chassis_sn"
               placeholder="请填写/扫描机芯编号"
-              :disabled="chassis_sn?true:false"/>
-            <div class="pic-div" v-if="chassis_sn" @click="untieBind">
+              :disabled="uni_chassis_sn"/>
+            <div class="pic-div" v-if="uni_chassis_sn" @click="untieBind">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -80,8 +80,8 @@
               type="text"
               name="num1_sn"
               placeholder="模块1编号"
-              :disabled="num1_sn?true:false"/>
-            <div class="pic-div" v-if="num1_sn" @click="untieModule1">
+              :disabled="uni_num1_sn"/>
+            <div class="pic-div" v-if="uni_num1_sn" @click="untieModule1">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -101,8 +101,8 @@
               type="text"
               name="num2_sn"
               placeholder="模块2编号"
-              :disabled="num2_sn?true:false"/>
-            <div class="pic-div" v-if="num2_sn" @click="untieModule2">
+              :disabled="uni_num2_sn"/>
+            <div class="pic-div" v-if="uni_num2_sn" @click="untieModule2">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -122,8 +122,8 @@
               type="text"
               name="num3_sn"
               placeholder="模块3编号"
-              :disabled="num3_sn?true:false"/>
-            <div class="pic-div" v-if="num3_sn" @click="untieModule3">
+              :disabled="uni_num3_sn"/>
+            <div class="pic-div" v-if="uni_num3_sn" @click="untieModule3">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -142,8 +142,8 @@
               type="text"
               name="num4_sn"
               placeholder="模块4编号"
-              :disabled="num4_sn?true:false"/>
-            <div class="pic-div" v-if="num4_sn" @click="untieModule4">
+              :disabled="uni_num4_sn"/>
+            <div class="pic-div" v-if="uni_num4_sn" @click="untieModule4">
                 <img class="pic-img-icon" src="../assets/images/icon_untie.png" alt="" />
               </div>
 
@@ -161,34 +161,34 @@
         <div class="icon_login_text">图片记录</div>
         <div class="form-item" style="border-bottom: none;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt=""/>
+            <img class="img_1" v-if="imgurl2" :src="imgurl2" alt="" @click="ImagePreview" :data-img="imgurl2"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">仪器序列号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" :data-img="imgurl"/>
+            <img class="img_1" v-if="imgurl" :src="imgurl" alt="" @click="ImagePreview" :data-img="imgurl"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">机芯编号</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" :data-img="imgurl3"/>
+            <img class="img_1" v-if="imgurl3" :src="imgurl3" alt="" @click="ImagePreview" :data-img="imgurl3"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块1</div>
           </div>
           <div class="img_1_view">
-           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt=""  :data-img="imgurl4"/>
+           <img class="img_1" v-if="imgurl4" :src="imgurl4" alt=""  @click="ImagePreview" :data-img="imgurl4"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块2</div>
           </div>
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt=""  :data-img="imgurl5"/>
+            <img class="img_1" v-if="imgurl5" :src="imgurl5" alt="" @click="ImagePreview" :data-img="imgurl5"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块3</div>
           </div>
         </div>
         <div class="form-item" style="border-bottom: none;padding-left: 6px;">
           <div class="img_1_view">
-            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" :data-img="imgurl6"/>
+            <img class="img_1" v-if="imgurl6" :src="imgurl6" alt="" @click="ImagePreview" :data-img="imgurl6"/>
             <div class="img_1" v-else></div>
             <div class="img_1_text">模块4</div>
           </div>
@@ -239,7 +239,6 @@ import Header from "../components/header.vue";
 import { udateH5Images,uploadImgSelect,uploadImgBind ,bindinstrument, getJSSDKHELP,saveinstrument,getModule,UnboundModule} from "../request/api";
 // import { Notify } from "vant";
 import {Dialog ,Uploader,Toast,ImagePreview,Loading} from 'vant';
-import wx from 'jweixin-module';
 
 var imgurl1= ''
 var imgurl= ''
@@ -263,6 +262,7 @@ export default {
       roleId: 1,  // 1--库管   2--生产  3--维修
       instrumentID: "",
       label_sn: "",
+      gps_sn: "",
       chassisid: "",
       chassis_sn: "",
       instrument_sn: "",
@@ -300,7 +300,12 @@ export default {
       imgurl4_old: '',
       imgurl5_old: '',
       imgurl6_old: '',
-      isEdit: true
+      isEdit: true,
+      uni_chassis_sn: true,
+      uni_num1_sn: true,
+      uni_num2_sn: true,
+      uni_num3_sn: true,
+      uni_num4_sn: true,
     };
   },
   activated() {
@@ -329,7 +334,8 @@ export default {
             that.instrument_sn = msg.instrument_SN;
             
             that.instrument_name = msg.instrument_name;
-            that.label_sn = msg.gps;
+            that.label_sn = msg.label;
+            that.gps_sn = msg.gps;
             that.imgurl2 = msg.snpic;
 
             if(msg.module && msg.module.length > 0){
@@ -339,21 +345,29 @@ export default {
                   that.chassisid = item.id;
                   that.chassis_sn = item.part_SN;
                   that.imgurl = item.part_pic;
+                  
+
                 } else if(item.type == "module"){
                   if(item.module_num == "1"){
                     that.numid1 = item.id;
                     that.imgurl3 = item.part_pic;
                     that.num1_sn = item.part_SN;
+
+                    
                   }
                   if(item.module_num == "2"){
                     that.numid2 = item.id;
                     that.imgurl4 = item.part_pic;
                     that.num2_sn = item.part_SN;
+
+                    
                   }
                   if(item.module_num == "3"){
                     that.numid3 = item.id;
                     that.imgurl5 = item.part_pic;
                     that.num3_sn = item.part_SN;
+
+                    
                   }
                   if(item.module_num == "4"){
                     that.numid4 = item.id;
@@ -363,6 +377,36 @@ export default {
                 }
               }
             }
+
+            if(that.chassis_sn){
+                    that.uni_chassis_sn = true;
+                  }else{
+                    that.uni_chassis_sn = false;
+                  }
+
+            if(that.num1_sn){
+                      that.uni_num1_sn = true;
+                    }else{
+                      that.uni_num1_sn = false;
+                    }
+
+            if(that.num2_sn){
+                      that.uni_num2_sn = true;
+                    }else{
+                      that.uni_num2_sn = false;
+                    }
+
+            if(that.num3_sn){
+                      that.uni_num3_sn = true;
+                    }else{
+                      that.uni_num3_sn = false;
+                    }
+
+            if(that.num4_sn){
+                      that.uni_num4_sn = true;
+                    }else{
+                      that.uni_num4_sn = false;
+                    }
           }
           
         } else {
@@ -385,6 +429,7 @@ export default {
               confirmButtonText: '确定',
               confirmButtonColor: '#307FF5'
             }).then(() => {
+              that.uni_chassis_sn = false;
               that.chassisid = "";
               that.chassis_sn = "";
               that.imgurl = "";
@@ -411,6 +456,7 @@ export default {
               confirmButtonText: '确定',
               confirmButtonColor: '#307FF5'
             }).then(() => {
+              that.uni_num1_sn = false;
               that.numid1 = "";
               that.imgurl3 = "";
               that.num1_sn = "";
@@ -438,6 +484,7 @@ export default {
               confirmButtonText: '确定',
               confirmButtonColor: '#307FF5'
             }).then(() => {
+              that.uni_num2_sn = false;
               that.numid2 = "";
               that.imgurl4 = "";
               that.num2_sn = "";
@@ -465,6 +512,7 @@ export default {
               confirmButtonText: '确定',
               confirmButtonColor: '#307FF5'
             }).then(() => {
+              that.uni_num3_sn = false;
               that.numid3 = "";
               that.imgurl5 = "";
               that.num3_sn = "";
@@ -492,6 +540,7 @@ export default {
               confirmButtonText: '确定',
               confirmButtonColor: '#307FF5'
             }).then(() => {
+              that.uni_num4_sn = false;
               that.numid4 = "";
               that.imgurl6 = "";
               that.num4_sn = "";
@@ -1101,7 +1150,8 @@ export default {
       }
       let params = {
         id: this.instrumentID,
-        gps: this.label_sn,
+        label: this.label_sn,
+        gps: this.gps_sn,
         instrument_SN: this.instrument_sn,
         snpic: this.imgurl2,
         chassisid: this.chassisid,
@@ -1140,8 +1190,7 @@ export default {
             Toast(res.data.msg)
           }
         });
-      }
-    },
+      },
     setDataValue(){
       let that = this;
       that.instrumentID = "";
@@ -1186,12 +1235,12 @@ export default {
               
               that.instrumentIndex = -1;
     },
-    // ImagePreview(e){
-    //   let img = e.target.dataset.img;
-    //   if(img){
-    //     ImagePreview([img]);
-    //   }
-    // },
+    ImagePreview(e){
+      let img = e.target.dataset.img;
+      if(img){
+        ImagePreview([img]);
+      }
+    },
     canvasDataURL (path, obj, callback) {
       let img = new Image()
       img.src = path
@@ -1227,6 +1276,7 @@ export default {
         // 回调函数返回base64的值
         callback(base64)
       }
+    },
   },
 };
 </script>

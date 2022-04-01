@@ -1052,7 +1052,7 @@ export default {
       let module = []
       if(this.num1_sn || this.imgurl3){
         let obj1 = {
-          "id": '',
+          "id": this.numid1,
 					"num":1,//模块一
 					"sn": this.num1_sn,//模块一的序列号
 					"pic":this.imgurl3//图
@@ -1061,7 +1061,7 @@ export default {
       }
       if(this.num2_sn || this.imgurl4){
         let obj2 = {
-          "id": '',
+          "id": this.numid2,
 					"num":2,//模块一
 					"sn": this.num2_sn,//模块一的序列号
 					"pic":this.imgurl4//图
@@ -1070,7 +1070,7 @@ export default {
       }
       if(this.num3_sn || this.imgurl5){
         let obj3 = {
-          "id": '',
+          "id": this.numid3,
 					"num":3,//模块一
 					"sn": this.num3_sn,//模块一的序列号
 					"pic":this.imgurl5//图
@@ -1079,7 +1079,7 @@ export default {
       }
       if(this.num4_sn || this.imgurl6){
         let obj4 = {
-          "id": '',
+          "id": this.numid4,
 					"num":4,//模块一
 					"sn": this.num4_sn,//模块一的序列号
 					"pic":this.imgurl6//图

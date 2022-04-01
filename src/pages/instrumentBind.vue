@@ -1180,8 +1180,10 @@ export default {
               confirmButtonColor: '#307FF5'
             }).then(() => {
               that.setDataValue();
+              that.isEdit = false;
             }).catch(() => {
               that.setDataValue();
+              that.isEdit = false;
               this.$router.replace({
                   path: "/instrumentList",
                   query:{id: that.roleId}

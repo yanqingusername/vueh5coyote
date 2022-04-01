@@ -505,6 +505,8 @@ export default {
     },
      handleTitleBack() {
        this.setDataValue();
+       this.instrument_sn= "";
+        this.instrument_name = "";
       this.$router.back();
     },
     bindSelect(e){
@@ -1124,8 +1126,11 @@ export default {
               confirmButtonColor: '#307FF5'
             }).then(() => {
               that.setDataValue();
+              this.getModules(that.instrument_sn,that.instrument_name);
             }).catch(() => {
               that.setDataValue();
+              that.instrument_sn= "";
+              that.instrument_name = "";
               this.$router.replace({
                   path: "/instrumentList",
                   query:{id: that.roleId}
@@ -1143,7 +1148,7 @@ export default {
               that.label_sn= "";
               that.chassisid= "";
               that.chassis_sn= "";
-              that.instrument_sn= "";
+              
               that.numid1 = "";
               that.numid2 = "";
               that.numid3 = "";
@@ -1178,7 +1183,7 @@ export default {
               that.imgurl4_old= "";
               that.imgurl5_old= "";
               that.imgurl6_old= "";
-              that.instrument_name = "";
+              
               that.instrumentIndex = -1;
     },
     // ImagePreview(e){

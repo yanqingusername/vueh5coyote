@@ -197,7 +197,7 @@
       </div>
       <div class="empty_view"></div>
       <div class="view_bottom">
-          <div class="submit_view" @click="bindInstrument">确认绑定</div>
+          <div class="submit_view" @click="bindInstrument">确认编辑</div>
       </div>
 
     </div>
@@ -1244,7 +1244,7 @@ export default {
               message: res.data.msg,
               cancelButtonText: '返回首页',
               cancelButtonColor:'#666666',
-              confirmButtonText: '继续绑定',
+              confirmButtonText: '继续编辑',
               confirmButtonColor: '#307FF5'
             }).then(() => {
               that.setDataValue();

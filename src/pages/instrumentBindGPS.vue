@@ -302,6 +302,9 @@ export default {
           'instrument_name': 'Min8 Plus'
         },
         {
+          'instrument_name': 'Mini8 Cube'
+        },
+        {
           'instrument_name': 'Gentier 48E'
         }
       ],

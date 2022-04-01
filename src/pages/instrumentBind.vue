@@ -290,6 +290,9 @@ export default {
           'instrument_name': 'Min8 Plus'
         },
         {
+          'instrument_name': 'Mini8 Cube'
+        },
+        {
           'instrument_name': 'Gentier 48E'
         }
       ],
@@ -344,12 +347,24 @@ export default {
     this.getBindbutn();
   },
   mounted() {
+    // 监听手机物理返回键时禁止返回之前的路由
+        // if (window.history && window.history.pushState) {
+        //     window.addEventListener('popstate', this.forbidBack, false);
+        //     this.forbidBack() 
+        // }
+
     this.isWechat();
   },
   destroyed(){
     this.setDataValue();
+
+        // window.removeEventListener('popstate', this.forbidBack, false);
   },
   methods: {
+    // forbidBack () {
+    //         window.history.pushState('forward', null, '#');
+    //         window.history.forward(1);
+    //     },
     onInstrumentChange(val) {
       let code = val.value.instrument_name;
       console.log(val)

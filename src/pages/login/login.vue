@@ -135,7 +135,7 @@ export default {
             this.$router.push({
                 // path: "/instrumentList",
                 path: "/instrumentList",
-                query:{id: 3 || res.data.roleId}
+                query:{id: res.data.roleId}
             });
           } else {
             Toast(res.data.msg)

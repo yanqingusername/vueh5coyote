@@ -30,6 +30,11 @@
         />
         <img v-if="keywordValue" @click="clearSearchValue" style="width:18px;height:18px;position:absolute;right:15px;" src="../assets/images/deleteTest.png" alt="" />
       </div>
+
+      <div class="item_center" @click.stop="clickPDF" v-if="roleId == 1">库房安装及绑定耳环操作指南</div>
+      <div class="item_center" @click.stop="clickPDF" v-if="roleId == 2">生产安装及绑定 GPS 操作指南</div>
+      <div class="item_center" @click.stop="clickPDF" v-if="roleId == 3">维修安装及绑定 GPS 操作指南</div>
+
       <!-- <div :class="roleId == 3 ? 'search-list-role':'search-list'"> -->
       <div class="search-list-role">
         <div class="search-result">
@@ -370,6 +375,17 @@ export default {
       // this.$router.push("/instrumentBind");
       return;
     },
+    clickPDF() {
+      let that = this;
+      this.$router.push({
+        path: "/instrumentPDF",
+        query:{
+          id: that.roleId
+        }
+      });
+      // this.$router.push("/instrumentBind");
+      return;
+    },
     // 维修
     repairInstrument(e){
       let instrumentsn = e.target.dataset.instrumentsn;
@@ -548,6 +564,12 @@ export default {
   border: 1px solid #307ff5;
   font-size: 34px;
   color: #ffffff;
+}
+
+.item_center{
+  font-size: 32px;
+  padding: 20px;
+  color: #307ff5;
 }
 
 .search-list-role{

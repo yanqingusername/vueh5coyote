@@ -78,8 +78,7 @@ export default {
   activated() {
     this.roleId = this.$route.query.id;
     console.log(this.roleId);
-  },
-  mounted() {
+
     if (this.roleId == 3) {
       this.url = "/store3.pdf"; //维修
     } else if (this.roleId == 2) {
@@ -87,10 +86,11 @@ export default {
     } else {
       this.url = "/store1.pdf"; //库房
     }
+  },
+  mounted() {
+    
 
-    try {
-      this.getNumPages(url);
-    } catch (error) {}
+   
   },
   methods: {
     handleTitleBack() {

@@ -24,6 +24,7 @@
     "vconsole": "^3.14.2",
     "vue": "^2.6.14",
     "vue-easytable": "^2.8.0",
+    "vue-pdf": "^4.3.0",
     "vue-router": "^3.5.2",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.1.0"

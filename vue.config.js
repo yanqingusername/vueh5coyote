@@ -14,8 +14,8 @@ module.exports = {
     devServer: {
         proxy: {
             '/storemanage': {
-                target: 'http://ygldev.coyotebio-lab.com',
-                // target: 'http://ygldev.coyotebio-lab.com:8040',
+                // target: 'http://ygldev.coyotebio-lab.com',
+                target: 'http://ygldev.coyotebio-lab.com:8040',
                 changeOrigin: true,
                 pathRewrite:{
                     '^/storemanage': '/storemanage'

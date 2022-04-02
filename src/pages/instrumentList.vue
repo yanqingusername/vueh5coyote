@@ -1,16 +1,20 @@
 <template>
   <div class="child-section">
-    <Header>
+    <!-- <Header>
       <div class="header-content">
         <div class="header-title">仪器管理</div>
         <div class="header-back">
           <div class="back" @click="handleTitleBack">
-            <!-- <i class="iconfont icon-arrowthin"></i> -->
             <img class="icon_logo" src="../assets/images/close.png" alt="" />
           </div>
         </div>
       </div>
-    </Header>
+    </Header> -->
+
+    <div class="view_top">
+        <div class="submit_view" @click="bindPDG">查看说明书</div>
+      </div>
+
     <div class="main">
       <div class="form-item">
         <img style="width:18px;height:18px;" src="../assets/images/search.png" alt="" />
@@ -370,6 +374,16 @@ export default {
       // this.$router.push("/instrumentBind");
       return;
     },
+    bindPDG(){
+       let that = this;
+      this.$router.push({
+        path: "/instrumentPDF",
+        query:{
+          id: that.roleId
+        }
+      });
+      return;
+    },
     // 维修
     repairInstrument(e){
       let instrumentsn = e.target.dataset.instrumentsn;
@@ -484,6 +498,15 @@ export default {
 .empty_view{
   height: 150px;
   width: 100%;
+}
+
+.view_top{
+   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+  background: #FFFFFF;
 }
 
 .view_bottom {

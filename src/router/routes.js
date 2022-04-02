@@ -11,6 +11,7 @@ import instrumentBindGPS from '../pages/instrumentBindGPS.vue';
 import instrumentStore from '../pages/instrumentStore.vue';
 import instrumentStoreGPS from '../pages/instrumentStoreGPS.vue';
 import instrumentRepair from '../pages/instrumentRepair.vue';
+import instrumentPDF from '../pages/instrumentPDF.vue';
 
 
 const routes = [{
@@ -65,6 +66,10 @@ const routes = [{
     {
         path:"/instrumentRepair",
         component: instrumentRepair
+    },
+    {
+        path:"/instrumentPDF",
+        component: instrumentPDF
     },
     {
         path: '/',

@@ -5,7 +5,8 @@
         <div class="header-title">绑定仪器 GPS</div>
         <div class="header-back">
           <div class="back" @click="handleTitleBack">
-            <img class="icon_logo" src="../assets/images/close.png" alt="" />
+            <i class="iconfont icon-arrowthin" style="color: #999999;"></i>
+            <!-- <img class="icon_logo" src="../assets/images/close.png" alt="" /> -->
           </div>
         </div>
       </div>
@@ -317,10 +318,10 @@ export default {
         },
         {
           'instrument_name': 'Mini8 Cube'
-        },
-        {
-          'instrument_name': 'Gentier 48E'
         }
+        // {
+        //   'instrument_name': 'Gentier 48E'
+        // }
       ],
       instrumentIndex: -1,
       instrument_name:"",

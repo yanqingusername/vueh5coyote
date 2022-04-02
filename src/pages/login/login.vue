@@ -11,6 +11,7 @@
           v-model="phone"
           type="tel"
           name="phone"
+          :oninput="phone = (phone.length > 11 ? phone.slice(0, 11) : phone)"
           placeholder="请输入手机号码"
         />
         <div class="get_code" @click="btnClick">
@@ -23,7 +24,7 @@
           type="number"
           name="code"
           placeholder="请输入验证码"
-          maxlength="4"
+          :oninput="code = (code.length > 4 ? code.slice(0, 4) : code)"
         />
       </div>
       <!-- <div class="submit_view" @click="commit">登录</div> -->

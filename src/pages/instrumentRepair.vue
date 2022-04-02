@@ -5,7 +5,8 @@
         <div class="header-title">编辑仪器</div>
         <div class="header-back">
           <div class="back" @click="handleTitleBack">
-            <img class="icon_logo" src="../assets/images/close.png" alt="" />
+            <i class="iconfont icon-arrowthin" style="color: #999999;"></i>
+            <!-- <img class="icon_logo" src="../assets/images/close.png" alt="" /> -->
           </div>
         </div>
       </div>

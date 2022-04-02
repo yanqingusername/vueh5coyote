@@ -5,8 +5,8 @@
         <div class="header-title">仪器管理</div>
         <div class="header-back">
           <div class="back" @click="handleTitleBack">
-            <!-- <i class="iconfont icon-arrowthin"></i> -->
-            <img class="icon_logo" src="../assets/images/close.png" alt="" />
+            <i class="iconfont icon-arrowthin" style="color: #999999;"></i>
+            <!-- <img class="icon_logo" src="../assets/images/close.png" alt="" /> -->
           </div>
         </div>
       </div>
@@ -102,14 +102,14 @@
       </div> -->
 
       <div class="view_bottom" v-if="roleId == 1">
-        <div class="view_bottom_left_1" @click="untieInstrument">解绑耳环</div>
-        <div class="view_bottom_right_1" @click="bindStoreGPS">绑定GPS</div>
-        <div class="view_bottom_right_1" @click="bindStore">绑定耳环</div>
+        <div class="view_bottom_left" @click="untieInstrument">解绑耳环</div>
+        <!-- <div class="view_bottom_right_1" @click="bindStoreGPS">绑定GPS</div> -->
+        <div class="view_bottom_right" @click="bindStore">绑定耳环</div>
       </div>
 
       <div class="view_bottom" v-if="roleId == 2">
-        <div class="view_bottom_left" @click="bindGPS">绑定GPS</div>
-        <div class="view_bottom_right" @click="bindInstrument">绑定耳环</div>
+        <div class="submit_view" @click="bindGPS">绑定GPS</div>
+        <!-- <div class="view_bottom_right" @click="bindInstrument">绑定耳环</div> -->
       </div>
 
       <div class="view_bottom" v-if="roleId == 3">

@@ -39,7 +39,7 @@
         <div class="icon_login_text">仪器信息</div>
         <div class="drop-select-item">
           <DropDownList
-              :dataList="instrumentList"
+              :dataList="instrumentLists"
               :activeIndex="instrumentIndex"
               @change="onInstrumentChange"
               align="left"
@@ -290,7 +290,7 @@ export default {
   data() {
     return {
       isShowInstrument: true,
-      instrumentList:[
+      instrumentLists:[
         {
           'instrument_name': 'Flash 20'
         },
@@ -404,8 +404,8 @@ export default {
             that.instrument_sn = msg.instrument_SN;
             
             if(msg && msg.instrument_name){
-              for(let i = 0; i < that.instrumentList.length; i++){
-                if(that.instrumentList[i].instrument_name == msg.instrument_name){
+              for(let i = 0; i < that.instrumentLists.length; i++){
+                if(that.instrumentLists[i].instrument_name == msg.instrument_name){
                   that.instrument_name = msg.instrument_name;
                   that.instrumentIndex = i;
                 }

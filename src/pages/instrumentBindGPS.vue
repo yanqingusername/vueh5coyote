@@ -311,6 +311,18 @@ export default {
         },
         {
           'instrument_name': 'Mini8 Cube'
+        },
+        {
+          'instrument_name': '全自动核酸提取纯化仪 purifier HT'
+        },
+        {
+          'instrument_name': '灭菌锅'
+        },
+        {
+          'instrument_name': '雅睿MA-6000'
+        },
+        {
+          'instrument_name': 'Gentier96R'
         }
         // {
         //   'instrument_name': 'Gentier 48E'

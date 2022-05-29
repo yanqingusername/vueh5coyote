@@ -411,9 +411,12 @@ export default {
                 }
               }
             }
+            // if(msg && msg.gps){
             that.label_sn = msg.gps;
+            // }
+            // if(msg && msg.snpic){
             that.imgurl2 = msg.snpic;
-
+            // }
             if(msg.module && msg.module.length > 0){
               for(let i = 0; i < msg.module.length; i++){
                 let item = msg.module[i];

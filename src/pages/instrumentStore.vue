@@ -22,7 +22,7 @@
               type="text"
               name="label_sn"
               placeholder="请填写/扫描耳环编号"
-              :onkeyup="label_sn=label_sn.replace(/[^\w\.\/]/ig,'')"
+              :onkeyup="label_sn=label_sn.toString().replace(/[^\w\.\/]/ig,'')"
             />
             <div class="pic-div"  @click="OnQRcode">
                 <img class="pic-img-item" id="img1">
@@ -258,7 +258,7 @@
  */
 
 import Header from "../components/header.vue";
-import { udateH5Images,uploadImgSelect,uploadImgBind ,bindinstrument, getJSSDKHELP,searchSN,getModule} from "../request/api";
+import { udateH5Images,uploadImgSelect,uploadImgBind ,bindinstrument, getJSSDKHELP,searchLabelSN,getModule} from "../request/api";
 // import { Notify } from "vant";
 import { Button,Dialog ,Uploader,Toast,ImagePreview,Loading} from 'vant';
 import wx from 'jweixin-module';
@@ -352,7 +352,8 @@ export default {
       imgurl4_old: '',
       imgurl5_old: '',
       imgurl6_old: '',
-      isEdit: true
+      isEdit: true,
+      isBing: 1
     };
   },
   activated() {
@@ -397,8 +398,29 @@ export default {
                 }
               }
             }
-            that.label_sn = msg.label;
-            that.imgurl2 = msg.snpic;
+            // that.label_sn = msg.label;
+            // that.imgurl2 = msg.snpic;
+
+            that.isBing = 1;
+
+            if(that.label_sn){
+              if(msg && msg.label){
+                Toast('此仪器已绑定耳环号,请解绑后再绑定!');
+                that.isBing = 2;
+              }
+            }else{
+              if(msg && msg.label){
+                Toast('此仪器已绑定耳环号,请解绑后再绑定!');
+                that.isBing = 2;
+              }
+              that.label_sn = msg.label;
+            }
+
+            if(that.imgurl2){
+              
+            }else{
+              that.imgurl2 = msg.snpic;
+            }
 
             if(msg.module && msg.module.length > 0){
               for(let i = 0; i < msg.module.length; i++){
@@ -504,11 +526,31 @@ export default {
             const resultStrArr = res.resultStr.split(',');		
             // 转为数组时为了避免扫描一维码是返回CODE_128,20180528前面会添加一个CODE_128所以转为数组获		取最后一条就行了
             console.log(resultStrArr[resultStrArr.length - 1]); // 输出扫码信息
-            that.result = resultStrArr[resultStrArr.length - 1];
-            that.label_sn = resultStrArr[resultStrArr.length - 1];
+            // that.result = resultStrArr[resultStrArr.length - 1];
+            let label_sn = resultStrArr[resultStrArr.length - 1];
+            if(label_sn){
+              that.searchLabelSN(label_sn);
+            }else{
+              Toast('请重新扫描耳环编号')
+              // that.OnQRcode();
+            }
           },
           fail(res) {
             console.log('err', res);
+          }
+        });
+    },
+    searchLabelSN(label_sn){
+      let that = this;
+      searchLabelSN({
+          label: label_sn
+        }).then((res) => {
+          if (res.data.success) {
+            let msg = res.data.msg;
+            that.label_sn = msg.label_sn;
+          } else {
+            Toast('请重新扫描耳环编号')
+            // that.OnQRcode();
           }
         });
     },
@@ -1149,6 +1191,10 @@ export default {
       }
       if (this.instrument_sn == '') {
         Toast('仪器序列号不能为空');
+        return;
+      }
+      if (this.isBing == 2) {
+        Toast('此仪器已绑定耳环号,请解绑后再绑定!');
         return;
       }
       

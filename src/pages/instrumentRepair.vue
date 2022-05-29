@@ -341,13 +341,21 @@ export default {
         if (res.data.success) {
           if(res.data.status == 1){
             let msg = res.data.msg;
+            // if(msg && msg.instrumentID){
             that.instrumentID = msg.instrumentID;
+            // }
             that.instrument_sn = msg.instrument_SN;
             
             that.instrument_name = msg.instrument_name;
+            // if(msg && msg.label){
             that.label_sn = msg.label;
+            // }
+            // if(msg && msg.gps){
             that.gps_sn = msg.gps;
+            // }  
+            // if(msg && msg.snpic){
             that.imgurl2 = msg.snpic;
+            // }
 
             if(msg.module && msg.module.length > 0){
               for(let i = 0; i < msg.module.length; i++){

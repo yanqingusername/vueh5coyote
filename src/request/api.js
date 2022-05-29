@@ -48,6 +48,9 @@ export const getModule = val => requestH5Other('/store/getModule.hn', val, 'get'
 export const UnboundModule = val => requestH5Other('/store/UnboundModule.hn', val, 'get'); // 仪器序列号获取模块
 
 
+export const searchLabelSN = val => requestH5Other('/store/getLabel.hn', val, 'get'); // 根据耳环编号查询
+
+
 
 
 

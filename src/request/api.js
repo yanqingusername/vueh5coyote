@@ -24,7 +24,7 @@ export const getLogin = val => requestH5Other('/store/login.hn', val, 'get'); //
 
 export const getBindbutn = val => requestH5Other('/store/bindbutn.hn', val, 'get'); // 首页上的绑定按钮
 
-export const bindinstrument = val => requestH5Other('/store/bindinstrument.hn', val, 'get'); // 绑定按钮
+export const bindinstrument = val => requestH5Other('/store/bindinstrument.hn', val, 'post'); // 绑定按钮
 
 export const uploadImgSelect = val => requestH5Other('/store/upload.hn', val, 'post'); //上传图片
 
